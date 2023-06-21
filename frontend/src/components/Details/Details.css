@@ -1,0 +1,88 @@
+#details {
+    flex-grow: 1;
+    display: flex;
+    color: var(--text);
+}
+#details_image img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#details_image {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    display: block;
+}
+
+#book_info {
+    width: 300px;
+    padding: 10px;
+    padding-top: 80px;
+    padding-right: 40px;
+    color: black;
+}
+
+#book_name {
+    margin-bottom: 30px;
+}
+
+#book_name p {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#book_name * {
+    text-align: right;
+    display: block;
+}
+
+.other_details {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.other_details:nth-child(even) {
+    background-color: var(--gray);
+}
+
+#rep,
+#details h4 {
+    font-size: 15px;
+}
+
+#rep {
+    margin-top: 20px;
+}
+
+#details h4 {
+    text-align: right;
+    margin: 30px 0;
+}
+
+#donut {
+    display: block;
+    width: 80px;
+    margin-left: auto;
+}
+
+#reserve {
+    display: block;
+    text-decoration: none;
+    color: var(--primary);
+    padding: 15px 30px;
+    border-radius: 25px;
+    margin-top: 60px;
+    margin-left: auto;
+    background-color: var(--secondary);
+    width: 150px;
+    text-align: center;
+}
