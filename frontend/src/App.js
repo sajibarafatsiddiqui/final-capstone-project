@@ -1,9 +1,12 @@
+import React from 'react';
+import { MantineProvider } from '@mantine/core';
+import CarBooking from './components/CarBooking';
 
 function App() {
   return (
-    <div className="App">
-     <p>Welcome in our new React App!</p>
-    </div>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <CarBooking />
+    </MantineProvider>
   );
 }
 
