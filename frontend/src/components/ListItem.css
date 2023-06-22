@@ -30,14 +30,14 @@
 .cards-container {
     padding-top: 50px;
     margin-top: 20px;
-    display: flex;
+    /* display: flex; */
 }
 
 .item-card {
     width: 250px;
     /* height: 220px; */
     padding:10px;
-    margin:10px;
+    /* margin:10px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,4 +67,6 @@
 .item-image {
     padding:0;
     margin:0;
+    /* height: 150px;
+    width: auto; */
 }
