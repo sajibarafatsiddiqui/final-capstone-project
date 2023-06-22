@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
 import {
+  IconHome,
+  IconTicket,
+  IconPlus,
+  IconEraser,
+  IconLogout2,
   IconBellRinging,
   IconFingerprint,
   IconKey,
@@ -19,13 +24,6 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.md,
     marginBottom: `calc(${theme.spacing.md} * 1.5)`,
     borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-      }`,
-  },
-
-  footer: {
-    paddingTop: theme.spacing.md,
-    marginTop: theme.spacing.md,
-    borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
       }`,
   },
 
@@ -58,21 +56,18 @@ const useStyles = createStyles((theme) => ({
 
   linkActive: {
     '&, &:hover': {
-      backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
-      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
-      [`& .${getStylesRef('icon')}`]: {
-        color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
-      },
+      backgroundColor: '#97bf0f',
+      color: '#fff'
     },
   },
 }));
 
 const data = [
-  { link: 'list-item', label: 'Explore', icon: IconBellRinging },
-  { link: 'my-reservations', label: 'My Reservations', icon: IconReceipt2 },
-  { link: 'add-item', label: 'Add a record', icon: IconFingerprint },
-  { link: 'delete-item', label: 'Delete a record', icon: IconKey },
-  { link: '', label: 'Logout', icon: IconDatabaseImport },
+  { link: 'list-item', label: 'Explore', icon: IconHome },
+  { link: 'my-reservations', label: 'My Reservations', icon: IconTicket },
+  { link: 'add-item', label: 'Add a record', icon: IconPlus },
+  { link: 'delete-item', label: 'Delete a record', icon: IconEraser },
+  { link: '', label: 'Logout', icon: IconLogout },
 ];
 
 function Navigation() {
@@ -89,24 +84,39 @@ function Navigation() {
     //     setActive(item.label);
     //   }}
     // >
-    <span>
-      <Link className={cx(classes.link, { [classes.linkActive]: item.label === active })} to={item.link}>{item.label}</Link>
-    </span>
+    // <span style={{display:'flex', justifyContent:'flex-start', alignItems:'center'}}>
+
+    <Link className={cx(classes.link, { [classes.linkActive]: item.label === active })} to={item.link} onClick={() => setActive(item.label)}>
+      <item.icon className={classes.linkIcon} stroke={1.5} color={item.label === active ? 'white' : 'black'} />
+      {item.label}
+    </Link>
+    // </span>
 
     // <span>{item.label}</span>
     // </a>
   ));
 
+  useEffect(()=>{
+    setActive('Explore');
+  },[]);
+
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <Navbar height='100vh' width={{ sm: 260 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           {/* <MantineLogo size={28} /> */}
-          <h2>Mantine</h2>
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+          <h2>Car-Booking</h2>
+          <Code sx={{ fontWeight: 700 }}>v1.0.0</Code>
         </Group>
         {links}
+
+        {/* footer */}
+        {/* icons & copyright */}
+        <div style={{position:'absolute', bottom:10}}>
+        <p>Copyright @2023 Team H.</p>
+        </div>
       </Navbar.Section>
+
     </Navbar>
   );
 }
