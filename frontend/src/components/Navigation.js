@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
+import { createStyles, Navbar, Group, Code, getStylesRef, rem, Image } from '@mantine/core';
 import {
   IconHome,
   IconTicket,
@@ -16,15 +16,23 @@ import {
   IconReceipt2,
   IconSwitchHorizontal,
   IconLogout,
+  IconBrandFacebook,
+  IconBrandTwitter,
+  IconBrandGithub,
+  IconBrandFacebookFilled,
+  IconBrandTwitterFilled,
+  IconBrandGithubFilled,
+  IconBrandPinterest,
+  IconMail,
 } from '@tabler/icons-react';
 // import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
   header: {
-    paddingBottom: theme.spacing.md,
-    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-    borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-      }`,
+      alignItems:'center',
+      justifyContent:'center',
+      display:'flex',
+      marginBottom:20
   },
 
   link: {
@@ -104,16 +112,18 @@ function Navigation() {
     <Navbar height='100vh' width={{ sm: 260 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
+          <Image src="car booking logo.png" height='120px' width='120px'/>
           {/* <MantineLogo size={28} /> */}
-          <h2>Car-Booking</h2>
-          <Code sx={{ fontWeight: 700 }}>v1.0.0</Code>
+          {/* <h2>Car-Booking</h2> */}
+          {/* <Code sx={{ fontWeight: 700 }}>v1.0.0</Code> */}
         </Group>
         {links}
 
         {/* footer */}
         {/* icons & copyright */}
-        <div style={{position:'absolute', bottom:10}}>
-        <p>Copyright @2023 Team H.</p>
+        <div style={{width: '180px', position:'absolute', bottom:15, alignItems:'center', justifyContent:'center', display:'flex', flexDirection:'column'}}>
+          <span><IconBrandFacebook stroke={0.8} color='gray'/><IconBrandTwitter stroke={0.8}  color='gray'/><IconBrandGithub stroke={0.8}  color='gray'/><IconBrandPinterest stroke={0.8}  color='gray'/><IconMail stroke={0.8}  color='gray'/></span>
+        <p style={{margin:0, color:'gray', fontSize:12, fontWeight:'bold'}}>Copyright @2023 Team H.</p>
         </div>
       </Navbar.Section>
 
