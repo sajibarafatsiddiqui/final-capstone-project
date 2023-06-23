@@ -2,13 +2,13 @@ class Api::V1::CarsController < ApplicationController
 
     def index
         @cars = Car.all
-        render json: @cars.map { |car| { model: car.model, rent_price: car.rent_price, status: car.status, image: car.image } }
+        render json: @cars.map { |car| { id: car.id, model: car.car_model, rent_price: car.rent_price, status: car.car_status, image: car.car_image } }
     end
   def create
     @car = Car.new(car_params)
 
     if @car.save
-      render json: @car, status: :created, location: @car
+      render json: @car, status: :created
     else
       render json: @car.errors, status: :unprocessable_entity
     end
@@ -16,7 +16,7 @@ class Api::V1::CarsController < ApplicationController
 
   def show
     @car = Car.find(params[:id])
-    render json: { model: @car.model, rent_price: @car.rent_price, status: @car.status, image: @car.image }
+    render json: { model: @car.car_model, rent_price: @car.rent_price, status: @car.car_status, image: @car.car_image }
   end
 
   def destroy
@@ -25,15 +25,10 @@ class Api::V1::CarsController < ApplicationController
     head :no_content
   end
 
-  private
-
-  def rental_params
-    params.require(:rental).permit(:user_id, :car_id, :start_date, :end_date)
-  end
 
   private
 
   def car_params
-    params.require(:car).permit(:image_model, :status, :rent, :price)
+    params.require(:car).permit(:car_image, :car_model, :rent_price, :car_status)
   end
 end
