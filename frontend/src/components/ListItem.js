@@ -46,8 +46,8 @@ const ListItem = () => {
                     <Carousel.Slide>
                         {/* cards */}
                         <div className="item-card">
-                            <Image className="item-image" maw={240} mx="auto" radius="md" src="https://www.pngmart.com/files/5/Mercedes-Benz-PNG-Transparent.png" alt="car cover image" />
-                            <h3 className="item-title">Mercedes S CLASS</h3>
+                            <Image className="item-image" maw={240} mx="auto" radius="md" src="https://media-server1.modenamotorsgmbh.com/25419-large_default/mercedes-amg-g-63-brabus-800.jpg" alt="car cover image" />
+                            <h3 className="item-title">Mercedes BRABUS</h3>
                             <p className="item-subtitle">Officiel brand new Mercedes BENZ S Class that brings you comfort and luxury...</p>
                         </div>
                     </Carousel.Slide>

@@ -104,10 +104,6 @@ function Navigation() {
     // </a>
   ));
 
-  useEffect(()=>{
-    setActive('Explore');
-  },[]);
-
   return (
     <Navbar height='100vh' width={{ sm: 260 }} p="md">
       <Navbar.Section grow>
