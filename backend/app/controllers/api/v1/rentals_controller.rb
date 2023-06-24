@@ -1,5 +1,10 @@
 class Api::V1::RentalsController < ApplicationController
 
+    def index
+       @rentals = Rental.where(user_id: current_user.id)
+       render json: @rentals
+     end
+
     def create
         @rental = Rental.new(rental_params.merge(user: current_user))
     
