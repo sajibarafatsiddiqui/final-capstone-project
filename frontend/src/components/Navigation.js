@@ -13,7 +13,6 @@ import {
   IconBrandPinterest,
   IconMail,
 } from '@tabler/icons-react';
-// import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -59,10 +58,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { link: 'list-item', label: 'Explore', icon: IconHome },
-  { link: 'my-reservations', label: 'My Reservations', icon: IconTicket },
-  { link: 'add-item', label: 'Add a car', icon: IconPlus },
-  { link: 'delete-item', label: 'Delete a car', icon: IconEraser },
+  { link: '../list-item', label: 'Explore', icon: IconHome },
+  { link: '../my-reservations', label: 'My Reservations', icon: IconTicket },
+  { link: '../add-item', label: 'Add a car', icon: IconPlus },
+  { link: '../delete-item', label: 'Delete a car', icon: IconEraser },
   { link: '', label: 'Logout', icon: IconLogout },
 ];
 

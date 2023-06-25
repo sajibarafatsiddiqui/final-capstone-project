@@ -1,0 +1,16 @@
+.wrapper {
+    background-image: url("/landing-page-bg.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    /* background-color: rgba(151, 191, 15, 0.7); */
+    /* background-position: right -180px bottom -160px; */
+    width: 100%;
+    height: 100vh;
+    margin:0;
+}
+
+.form {
+    width: 35%;
+    height: 100%;
+    margin:0;
+}
