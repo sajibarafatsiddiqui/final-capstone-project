@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import ReservationItem from "./ReservationItem";
 
 const MyReservations = () => {
-    const [reservations, setReservations] = useState([1, 2]);
+    const [reservations, setReservations] = useState([1]);
     return (
         <div className="main-container">
 
