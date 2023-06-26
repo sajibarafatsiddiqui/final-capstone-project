@@ -1,5 +1,9 @@
 class User < ApplicationRecord
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :first_name, presence: true, format: { with: /[a-zA-Z]/ }
+  validates :last_name, presence: true, format: { with: /[a-zA-Z]/ }
+  validates :gender, presence: true, format: { with: /[a-zA-Z]/ }
+  validates :age, presence: true, numericality: { only_integer: true }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: {with: /[a-zA-Z]/}
 
   passwordless_with :email
     has_many :rentals
