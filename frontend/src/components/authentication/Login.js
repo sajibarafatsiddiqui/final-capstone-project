@@ -17,11 +17,12 @@ import {
 } from '@mantine/core';
 import { IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react';
 import "./Login.css"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
 
 function Login(props) {
     const [type, toggle] = useToggle(['login', 'register']);
+    const navigate = useNavigate();
     const form = useForm({
         initialValues: {
             email: '',
@@ -48,7 +49,7 @@ function Login(props) {
 
                 <Divider label="Login with Email and password" labelPosition="center" my="lg" />
 
-                <form onSubmit={form.onSubmit(() => { })}>
+                <form onSubmit={form.onSubmit(() => { navigate("../list-item") })}>
                     <Stack>
                         {type === 'register' && (
                             <TextInput

@@ -21,7 +21,7 @@ function CarBooking() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/Signup' element={<Signup />} />
                     <Route path='/list-item' element={<><Navigation /><ListItem /></>} />
-                    <Route path='/details' element={<><Navigation /><Details /></>} />
+                    <Route path='/details/:id' element={<><Navigation /><Details /></>} />
                     <Route path='/my-reservations' element={<><Navigation /><MyReservations /></>} />
                     <Route path='/delete-item' element={<><Navigation /><DeleteItemList /></>} />
                     <Route path='/add-item' element={<><Navigation /><AddItem /></>} />

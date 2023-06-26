@@ -2,32 +2,37 @@ import React, { useState } from "react";
 import { Button, Image, Modal, Select, TextInput, useMantineTheme } from "@mantine/core";
 import { IconArrowLeft, IconBrandBooking, IconTicket } from "@tabler/icons-react";
 import "./Details.css"
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
+import { tableData } from "../../helpers/datas";
 
 const Details = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [opened, { open, close }] = useDisclosure(false);
     const [value, setValue] = useState(null);
     const theme = useMantineTheme();
+
+    const selectedCar = tableData.filter((data) => data.id == id);
+    console.log(selectedCar[0]);
     return (
         <div className="details-container">
             {/* back home button with absolute style */}
             <Button leftIcon={<IconArrowLeft />} variant="subtle" color="dark" className="back-home-btn" onClick={() => navigate("../list-item")}>Back to Car list</Button>
             <div className="details-image-container">
-                <Image src="https://pngimg.com/uploads/land_rover/land_rover_PNG82.png" width="80%" height="auto" />
+                <Image src={selectedCar[0].image} width="80%" height="auto" />
             </div>
             <div className="details-info-container">
-                <h2 className="car-name-info-detail">RANGE ROVER</h2>
+                <h2 className="car-name-info-detail">{selectedCar[0].model}</h2>
                 <p className="car-desc-info-detail">Edition 2017, Sport HSE 4.0L V8</p>
                 <div className="details-info-gray">
                     <p>Status</p>
-                    <p>New</p>
+                    <p>${selectedCar[0].status}</p>
                 </div>
                 <div className="details-info-light">
                     <p>Renting Price</p>
-                    <p>USD 120</p>
+                    <p>${selectedCar[0].price}</p>
                 </div>
                 <div className="details-info-gray">
                     <p>Number of seats</p>
@@ -41,7 +46,7 @@ const Details = () => {
                 {/* logo car */}
                 <div style={{ paddingTop: 20, alignItems: 'end', justifyContent: 'end', display: 'flex', flexDirection: 'column' }}>
                     {/* <p style={{margin:0}}>Car Brand</p> */}
-                    <Image src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c48a.png" height={120} width="auto" />
+                    <Image src="https://png.pngtree.com/png-clipart/20221010/original/pngtree-20-discount-tag-png-image_8671801.png" height={120} width="auto" />
                 </div>
 
                 <Button leftIcon={<IconTicket />} size="md" radius="md" color="lime" onClick={open}>Book this car</Button>
@@ -63,10 +68,10 @@ const Details = () => {
                     size="sm"
                     label="Car model"
                     radius="md"
-                    value="1"
+                    value={selectedCar[0].id}
                     placeholder="Select"
                     data={[
-                        { value: '1', label: 'Range rover' },
+                        { value: selectedCar[0].id, label: selectedCar[0].model },
                     ]}
                 />
                 <Select
