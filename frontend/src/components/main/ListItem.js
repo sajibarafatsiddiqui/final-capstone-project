@@ -2,8 +2,14 @@ import React from "react";
 import './ListItem.css';
 import { Image } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
+import { useNavigate } from "react-router";
 
 const ListItem = () => {
+    const navigate = useNavigate();
+
+    function HandleNavigateToDetail(){
+        navigate("../details");
+    }
     return (
         <div className="list-item-container">
             {/* header */}
@@ -29,7 +35,7 @@ const ListItem = () => {
                 >
                     <Carousel.Slide>
                         {/* cards */}
-                        <div className="item-card">
+                        <div className="item-card" onClick={HandleNavigateToDetail}>
                             <Image className="item-image" maw={240} mx="auto" radius="md" src="https://pngimg.com/uploads/land_rover/land_rover_PNG82.png" alt="car cover image" />
                             <h3 className="item-title">Range Rover 2018</h3>
                             <p className="item-subtitle">Official Range rover sport HSE 2018 Biturbo with diesel engine 4.0 L...</p>
