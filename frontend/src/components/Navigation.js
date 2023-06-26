@@ -62,7 +62,7 @@ const data = [
   { link: '../my-reservations', label: 'My Reservations', icon: IconTicket },
   { link: '../add-item', label: 'Add a car', icon: IconPlus },
   { link: '../delete-item', label: 'Delete a car', icon: IconEraser },
-  { link: '', label: 'Logout', icon: IconLogout },
+  // { link: '', label: 'Logout', icon: IconLogout },
 ];
 
 function Navigation() {
