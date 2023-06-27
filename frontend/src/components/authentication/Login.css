@@ -1,0 +1,16 @@
+.login-wrapper {
+    background-image: url("/landing-page-bg-no-logo.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.login-form-container {
+    background-color: rgba(255, 255, 255, 1);
+    padding:30px;
+    border-radius: 5px;
+}
