@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_181609) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_205706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_181609) do
     t.string "car_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "passwordless_sessions", force: :cascade do |t|
+    t.string "authenticatable_type"
+    t.bigint "authenticatable_id"
+    t.datetime "timeout_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.datetime "claimed_at", precision: nil
+    t.text "user_agent", null: false
+    t.string "remote_addr", null: false
+    t.string "token", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
   end
 
   create_table "rentals", force: :cascade do |t|
@@ -39,9 +53,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_181609) do
     t.string "first_name"
     t.string "last_name"
     t.string "gender"
-    t.string "age"
+    t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "rentals", "cars"
