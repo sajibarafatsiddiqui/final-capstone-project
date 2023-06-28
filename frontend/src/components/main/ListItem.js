@@ -3,27 +3,24 @@ import './ListItem.css';
 import { Image } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
 import { useNavigate } from "react-router";
-import { tableData } from "../../helpers/datas";
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { LIST_CAR } from "../../action/types";
 
-const ListItem = () => {
+const ListItem = (props) => {
+    
+    // use dispatch function from Reducers
+    const { cars } = useSelector((state) => state.cars);
+    // const dispatch = useDispatch();
+    if (!cars.length) {
+        // dispatch(LIST_CAR);
+        props.listCar();
+    }
+
     const navigate = useNavigate();
 
     function HandleNavigateToDetail(id) {
         navigate(`../details/${id}`);
-    }
-
-    const displayCars = () => {
-        tableData.map((car) => {
-            return (
-                <Carousel.Slide key={car.id}>
-                    <div className="item-card" onClick={()=>HandleNavigateToDetail()} key={car.id}>
-                        <Image className="item-image" maw={240} mx="auto" radius="md" src={car.image} alt="car cover image" />
-                        <h3 className="item-title">{car.model}</h3>
-                        <p className="item-subtitle">Status: {car.status} | Renting price: {car.price}</p>
-                    </div>
-                </Carousel.Slide>
-            )
-        });
     }
 
     return (
@@ -44,19 +41,15 @@ const ListItem = () => {
                     slideGap="lg"
                     loop
                     align="start"
-                // breakpoints={[
-                //     { maxWidth: 'md', slideSize: '50%' },
-                //     { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
-                // ]}
                 >
                     {
-                        tableData.map((car) => {
+                        cars.map((car) => {
                             return (
-                                <Carousel.Slide key={car.id}>
-                                    <div className="item-card" onClick={()=>HandleNavigateToDetail(car.id)}>
+                                <Carousel.Slide key={nanoid()}>
+                                    <div className="item-card" onClick={() => HandleNavigateToDetail(car.id)}>
                                         <Image className="item-image" maw={240} mx="auto" radius="md" src={car.image} alt="car cover image" />
                                         <h3 className="item-title">{car.model}</h3>
-                                        <p className="item-subtitle">Status: {car.status} | Renting price: {car.price}</p>
+                                        <p className="item-subtitle">Status: {car.status} | Renting price: {car.rent_price}</p>
                                     </div>
                                 </Carousel.Slide>
                             )

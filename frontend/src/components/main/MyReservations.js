@@ -5,12 +5,18 @@ import { IconSearch } from "@tabler/icons-react";
 import { Link } from 'react-router-dom'
 import ReservationItem from "./ReservationItem";
 
-const MyReservations = () => {
-    const [reservations, setReservations] = useState([1]);
+const MyReservations = (props) => {
+    // const [reservations, setReservations] = useState([1]);
+    const { rentals } = useSelector((state) => state.rentals);
+    // const dispatch = useDispatch();
+    if (!rentals.length) {
+        // dispatch(LIST_CAR);
+        props.listRental();
+    }
     return (
         <div className="main-container">
 
-            {reservations.length < 1 ?
+            {rentals.length < 1 ?
                 <div className="empty-container">
                     <Image src="undraw_empty_cart_co35.png" height={120} width="auto" />
                     <h2 className="empty-headline">No Reservation found</h2>
@@ -24,9 +30,9 @@ const MyReservations = () => {
                         <p className="subtitle-headline">Find list of your booked cars here</p>
                     </div>
                     {/* list of reservations */}
-                    <div style={{ width: '100%', marginTop: 20, justifyContent: 'center', display: 'flex', flexDirection:'column' }}>
-                        {reservations.map((reservation) => (
-                            <ReservationItem data={{ title: "tit", desc: 'desc' }} />
+                    <div style={{ width: '100%', marginTop: 20, justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
+                        {rentals.map((reservation) => (
+                            <ReservationItem data={reservation} />
                         )
                         )}
                     </div>

@@ -88,8 +88,15 @@ function sortData(
     );
 }
 
-function DeleteItemList() {
-    const rows = tableData.map((row) => (
+function DeleteItemList(props) {
+    const { cars } = useSelector((state) => state.cars);
+    // const dispatch = useDispatch();
+    if (!cars.length) {
+        // dispatch(LIST_CAR);
+        props.listCar();
+    }
+
+    const rows = cars.map((row) => (
         <tr key={row.model}>
             <td><Image src={row.image} height={120} width="auto" radius="md" /></td>
             <td>{row.model}</td>
