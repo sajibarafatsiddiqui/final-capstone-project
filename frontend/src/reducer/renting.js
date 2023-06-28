@@ -12,7 +12,7 @@ function rentalReducer(rentals = initialStateRentals, action){
 
     switch (type) {
         case CREATE_RENTAL:
-            return [...rentails, payload];
+            return [...rentals, payload];
 
         case LIST_RENTAL:
             return payload;

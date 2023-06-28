@@ -6,4 +6,5 @@ export const CREATE_RENTAL = "CREATE_RENTAL";
 export const LIST_RENTAL = "LIST_RENTAL";
 export const CANCEL_RENTAL = "CANCEL_RENTAL";
 export const SIGN_IN = "SIGN_IN";
+export const SIGN_UP = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";

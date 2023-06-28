@@ -17,6 +17,7 @@ import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch, IconEraser } from '@tabler/icons-react';
 import { tableData } from "../../helpers/datas";
 import "./DeleteItemList.css"
+import { useSelector } from "react-redux";
 
 const useStyles = createStyles((theme) => ({
     th: {

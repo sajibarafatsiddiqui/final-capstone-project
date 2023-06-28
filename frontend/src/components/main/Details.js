@@ -7,6 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
 import { tableData } from "../../helpers/datas";
 import { FIND_CAR_BY_ID } from "../../action/types";
+import { useSelector } from "react-redux";
 
 const Details = (props) => {
     const { id } = useParams();
@@ -74,10 +75,10 @@ const Details = (props) => {
                     size="sm"
                     label="Car model"
                     radius="md"
-                    value={selectedCar.id}
+                    value={initlaStateSelectedCar.id}
                     placeholder="Select"
                     data={[
-                        { value: selectedCar.id, label: selectedCar.model },
+                        { value: initlaStateSelectedCar.id, label: initlaStateSelectedCar.model },
                     ]}
                 />
                 <Select

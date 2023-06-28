@@ -25,6 +25,7 @@ const useStyles = createStyles((theme) => ({
 
 function Signup() {
     const { classes } = useStyles();
+    // localStorage.setItem('user-token', token);
     return (
         <div className="wrapper">
             <Paper className="form" radius={0} p={30}>

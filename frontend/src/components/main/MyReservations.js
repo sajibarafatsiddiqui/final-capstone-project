@@ -4,6 +4,7 @@ import { Button, Image } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { Link } from 'react-router-dom'
 import ReservationItem from "./ReservationItem";
+import { useSelector } from "react-redux";
 
 const MyReservations = (props) => {
     // const [reservations, setReservations] = useState([1]);
