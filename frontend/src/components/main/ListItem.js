@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './ListItem.css';
 import { Image } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-import { LIST_CAR } from "../../action/types";
+// import { nanoid } from '@reduxjs/toolkit';
+import { fetchCars } from "../../redux/cars";
 
 const ListItem = (props) => {
     
-    // use dispatch function from Reducers
     const { cars } = useSelector((state) => state.cars);
-    // const dispatch = useDispatch();
-    if (!cars.length) {
-        // dispatch(LIST_CAR);
-        props.listCar();
-    }
+    console.log(cars);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
     function HandleNavigateToDetail(id) {
         navigate(`../details/${id}`);
     }
+
+    useEffect(() => {
+        dispatch(fetchCars());
+    }, [dispatch]);
 
     return (
         <div className="list-item-container">
@@ -45,7 +45,7 @@ const ListItem = (props) => {
                     {
                         cars.map((car) => {
                             return (
-                                <Carousel.Slide key={nanoid()}>
+                                <Carousel.Slide key={car.id}>
                                     <div className="item-card" onClick={() => HandleNavigateToDetail(car.id)}>
                                         <Image className="item-image" maw={240} mx="auto" radius="md" src={car.image} alt="car cover image" />
                                         <h3 className="item-title">{car.model}</h3>

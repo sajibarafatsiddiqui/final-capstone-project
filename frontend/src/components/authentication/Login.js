@@ -11,7 +11,6 @@ import {
 } from '@mantine/core';
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
-import { signIn } from '../../action/authentication';
 import { useDispatch } from 'react-redux';
 
 function Login() {
@@ -28,10 +27,10 @@ function Login() {
     });
 
     const handleLogin = data => {
-        // navigate("../list-item");
-        console.log(data.values);
-        signIn(data.values, dispatch);
+        navigate("../list-item");
         // console.log(data.values);
+        // signIn(data.values, dispatch);
+        console.log(data.values);
     }
 
     return (
