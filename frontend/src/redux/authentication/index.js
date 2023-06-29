@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addCar, getCarDetails, getCars, signUp } from '../../helpers/helpers';
+import { addCar, getCarDetails, getCars, signIn, signUp } from '../../helpers/helpers';
 
-const FETCH = 'rental/users/FETCH';
-const ADD = 'rental/users/ADD';
-const DELETE = 'rental/users/DELETE';
+const FETCH = 'rental/user/FETCH';
+const SIGNIN = 'rental/user/SIGNIN'
+const ADD = 'rental/user/ADD';
+const DELETE = 'rental/user/DELETE';
 
 // export const fetchUsers = createAsyncThunk(FETCH, async () => {
 //     const cars = await getCars();
@@ -15,6 +16,11 @@ export const uploadUser = createAsyncThunk(ADD, async (user) => {
     return user;
 });
 
+export const signinReducer = createAsyncThunk(SIGNIN, async (user) => {
+    let result = await signIn(user);
+    return  result;
+});
+
 // export const removeCar = createAsyncThunk(DELETE, async (id) => {
 //     await deleteBook(id);
 //     return id;
@@ -22,22 +28,23 @@ export const uploadUser = createAsyncThunk(ADD, async (user) => {
 
 const initialState = {
     user: {},
+    authenticatedUser: {}
 };
 
 
 
 const usersSlice = createSlice({
-    name: 'rental/users',
+    name: 'rental/user',
     initialState,
     extraReducers: {
         [uploadUser.fulfilled]: (state, action) => {
             const currentState = state;
             currentState.user = action.payload;
         },
-        // [fetchCarDetails.fulfilled]: (state, action) => {
-        //     const currentState = state;
-        //     currentState.selectedCar = action.payload;
-        // },
+        [signinReducer.fulfilled]: (state, action) => {
+            const currentState = state;
+            currentState.authenticatedUser = action.payload;
+        },
         // [saveCar.fulfilled]: (state, action) => {
         //     const currentState = state;
         //     const car = { ...action.payload };

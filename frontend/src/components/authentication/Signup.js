@@ -8,12 +8,13 @@ import {
     Text,
     Select,
 } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Signup.css"
 import { useDispatch } from 'react-redux';
 import { useForm } from '@mantine/form';
 import { signUp } from '../../helpers/helpers';
 import { uploadUser } from '../../redux/authentication';
+import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 
@@ -27,6 +28,7 @@ const Signup = () => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const form = useForm({
         initialValues: {
@@ -41,6 +43,16 @@ const Signup = () => {
     const handleSubmitForm = (data) => {
         setLoading(true);
         dispatch(uploadUser(data.values));
+        // 
+        form.reset();
+        notifications.show({
+            title: 'Notification',
+            content: 'User successfully created!',
+            color: 'red',
+            autoClose: true
+        });
+
+        navigate('../login');
 
     }
 

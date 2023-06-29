@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 import {
     TextInput,
@@ -11,11 +11,16 @@ import {
 } from '@mantine/core';
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signinReducer } from '../../redux/authentication';
+import Cookies from 'js-cookie';
 
-function Login() {
+const Login = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    // const { user } = useSelector((state) => state.user);
+
     const form = useForm({
         initialValues: {
             email: ''
@@ -27,7 +32,18 @@ function Login() {
     });
 
     const handleLogin = data => {
-        navigate("../list-item");
+        setLoading(true);
+        dispatch(signinReducer(data.values)).then(
+            response=>{
+                // Cookies.set('_backend_session', '')
+                
+                console.log(response.headers['Set-Cookie']);
+                // console.log(data.payload.session);
+            }
+        );
+        // console.log(response);
+        // console.log(user);
+        // navigate("../list-item");
         // console.log(data.values);
         // signIn(data.values, dispatch);
         console.log(data.values);
@@ -60,7 +76,7 @@ function Login() {
 
                     <Group position="apart" mt="xl">
                         <Link to="../signup" style={{ fontSize: 10 }}>Don't have an account? Register</Link>
-                        <Button type="submit" radius="sm" color='lime'>
+                        <Button type="submit" radius="sm" color='lime' loading={loading}>
                             Login
                         </Button>
                     </Group>
