@@ -12,18 +12,10 @@ const axiosConfig = {
 }
 
 
-const connectionString = axios.create({
-    withCredentials: true,
-    baseURL: 'http://127.0.0.1:5000/api/v1',
-    headers: {
-        'Authorization': `_backend_session=${cookie}`
-    }
-});
-
 // get cars from API
 export const getCars = async () => {
     const cars = await axios.get('http://127.0.0.1:5000/api/v1/cars', axiosConfig);
-    console.log(connectionString['headers']);
+
     return Object.entries(cars.data).map((car) => {
         const [{ id, car_model, rent_price, status, image }] = car;
         return {
@@ -38,14 +30,14 @@ export const getCars = async () => {
 
 
 export const getCarDetails = async (id) => {
-    const carDetail = await connectionString.get(`/cars${id}`);
+    const carDetail = await axios.get(`http://127.0.0.1:5000/api/v1/cars${id}`, axiosConfig);
     return carDetail;
 };
 
 // add a new car using API 
 export const addCar = async ({ id, car_model, rent_price, status, image }) => {
     const obj = { car: { "car_model": car_model, "rent_price": rent_price, "car_status": status, "car_image": image } }
-    await connectionString.post('/cars', obj);
+    await axios.post('http://127.0.0.1:5000/api/v1/cars', obj);
 };
 
 // delete car
@@ -53,7 +45,7 @@ export const addCar = async ({ id, car_model, rent_price, status, image }) => {
 
 // get rentals from API
 export const getRentals = async () => {
-    const rentals = await connectionString.get('/rentals');
+    const rentals = await axios.get('/rentals', axiosConfig);
     return Object.entries(rentals.data).map((reservation) => {
         const [{ id, date_rent, date_return, destination, user_id, car_id }] = reservation;
         return {
@@ -69,7 +61,7 @@ export const getRentals = async () => {
 
 export const addRental = async ({ id, date_rent, date_return, destination }) => {
     const obj = { rental: { "car_id": id, "date_rent": date_rent, "date_return": date_return, "destination": destination } }
-    await connectionString.post('/rentals', obj);
+    await axios.post('http://127.0.0.1:5000/api/v1/rentals', obj, axiosConfig);
 };
 // authencitation
 
@@ -88,4 +80,4 @@ export const signOut = async () => {
     // navigate('../login');
 };
 
-export default connectionString;
+// export default connectionString;
