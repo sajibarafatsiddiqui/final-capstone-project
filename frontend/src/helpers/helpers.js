@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router';
 const cookie = Cookies.get('_backend_session');
 console.log(cookie);
 
-const axiosConfig = {
-    headers: {
+const axiosConfig ={
         withCredentials: true,
-    }
+        headers: {'Cache-Control': 'max-age=9999'}
 }
 
 
@@ -72,7 +71,9 @@ export const signUp = async ({ email, first_name, last_name, age, gender }) => {
 
 export const signIn = async ({ email }) => {
     const obj = { user: { "email": email } }
-    return await axios.post('http://127.0.0.1:5000/api/v1/login', obj, axiosConfig);
+    return await axios.post('http://127.0.0.1:5000/api/v1/login', obj,  axiosConfig).then(response => {
+        console.log(response.data)
+      });
 };
 
 export const signOut = async () => {
