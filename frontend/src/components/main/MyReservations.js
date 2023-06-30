@@ -17,8 +17,8 @@ const MyReservations = () => {
         // get datas
         dispatch(fetchReservations()).then(
             response =>{
-                setMyReservations(response.payload);
-                console.log(response.payload);
+                setMyReservations(response.payload.data);
+                console.log(response.payload.data);
             }
         )
     }, [dispatch]);

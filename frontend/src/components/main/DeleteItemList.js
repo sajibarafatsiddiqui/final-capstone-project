@@ -91,20 +91,26 @@ function sortData(
 }
 
 function DeleteItemList(props) {
+    const [myCars, setMyCars] = useState([]);
     const { cars } = useSelector((state) => state.cars);
     console.log(cars);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCars());
+        // get datas
+        dispatch(fetchCars()).then(
+            response =>{
+                setMyCars(response.payload);
+            }
+        )
     }, [dispatch]);
 
-    const rows = cars.map((row) => (
+    const rows = myCars.map((row) => (
         <tr key={row.model}>
             <td><Image src={row.image} height={120} width="auto" radius="md" /></td>
             <td>{row.model}</td>
             <td>{row.status}</td>
-            <td>{row.price}</td>
+            <td>{row.rent_price}</td>
             <td><Button leftIcon={<IconEraser />} color="red">Delete</Button></td>
         </tr>
     ));

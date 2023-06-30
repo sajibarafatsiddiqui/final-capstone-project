@@ -34,17 +34,20 @@ const Details = (props) => {
 
     const form = useForm({
         initialValues: {
-            car_id: id,
+            car_id: selectedCar.id,
             date_rent: '',
             date_return: '',
-            destination:''
+            destination: ''
         },
     });
 
-    const handleSubmitForm = (data)=>{
-        console.log(data.values);
+    const handleSubmitForm = (data) => {
+        // submiting new rental
         setLoading(true);
-        dispatch(saveReservation(data.values));
+        let newData = data.values;
+        newData.car_id = id;
+
+        dispatch(saveReservation(newData));
         form.reset();
         setLoading(false);
         close();
@@ -100,15 +103,16 @@ const Details = (props) => {
 
                     {/* Modal content */}
                     <Select
+                        disabled
                         size="sm"
                         label="Car model"
                         radius="md"
                         name=""
-                        value = { id}
-                        onChange={(event) => form.setFieldValue('car_id', id)}
+                        value={selectedCar.id}
+                        onChange={(event) => form.setFieldValue('car_id', event)}
                         placeholder="Select"
                         data={[
-                            { value: selectedCar.car_id, label: selectedCar.model },
+                            { value: selectedCar.id, label: selectedCar.model },
                         ]}
                     />
                     <DateInput
@@ -117,11 +121,11 @@ const Details = (props) => {
                         placeholder="Date input"
                         maw={400}
                         mx="auto"
-                        value = { form.values.date_rent}
+                        value={form.values.date_rent}
                         onChange={(event) => form.setFieldValue('date_rent', event)}
                     />
                     <DateInput
-                        value = { form.values.date_return}
+                        value={form.values.date_return}
                         onChange={(event) => form.setFieldValue('date_return', event)}
                         label="Date"
                         name="date_return"
@@ -129,10 +133,10 @@ const Details = (props) => {
                         maw={400}
                         mx="auto"
                     />
-                    <TextInput label="City" placeholder="Enter the city" name ="destination" size="md"
-                    value = { form.values.destination}
-                    onChange={(event) => form.setFieldValue('destination', event.currentTarget.value)}
-                     />
+                    <TextInput label="City" placeholder="Enter the city" name="destination" size="md"
+                        value={form.values.destination}
+                        onChange={(event) => form.setFieldValue('destination', event.currentTarget.value)}
+                    />
                     <Button fullWidth mt="xl" size="md" color='lime' type="submit" loading={loading}>
                         Confirm booking
                     </Button>
