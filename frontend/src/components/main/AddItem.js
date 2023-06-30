@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddItem.css"
 import { Button, FileInput, Group, Input, NumberInput, Select, Stack, TextInput } from "@mantine/core";
 import { IconPlus, IconUpload } from "@tabler/icons-react";
@@ -7,7 +7,7 @@ import { saveCar } from "../../redux/cars";
 import { useForm } from "@mantine/form";
 const AddItem = () => {
     const dispatch = useDispatch();
-
+    const [loading, setLoading] = useState(false);
     const form = useForm({
         initialValues: {
             image: '',
@@ -68,7 +68,7 @@ const AddItem = () => {
                 </Stack>
 
                 <Group position="apart" mt="xl" style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Button type="submit" radius="sm" color="lime" name="SAVE CAR" leftIcon={<IconPlus />} loading>
+                    <Button type="submit" radius="sm" color="lime" name="SAVE CAR" leftIcon={<IconPlus />} loading={loading}>
                         RECORD THE NEW CAR
                     </Button>
                 </Group>
