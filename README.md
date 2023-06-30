@@ -2,7 +2,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <h1><b>Car Renting App</b></h1>
+  <h1><b>Car Booking App</b></h1>
     <img src='./frontend/public/car%20booking%20logo.png' height="120px" width="auto"/>
 </div>
 
@@ -25,9 +25,9 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-# 📖 The Recipe App <a name="about-project"></a>
+# 📖 Car Booking App <a name="about-project"></a>
 
- **Car renting App** is an app build on ruby using rails and React.
+ **Car Booking App** is an app build on ruby using rails and React.
  the app is built in two different apps that allow users to reserve cars for renting. the user can browse the list of cars and show details for each car, the user can submit a reservation form and can cancel reservation...
 
  the app uses authentication
