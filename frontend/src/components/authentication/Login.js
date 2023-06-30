@@ -42,7 +42,7 @@ const Login = () => {
                     if (response.payload.data.status == "ok") {
                         setLoading(false);
                         Cookies.set('_backend_session', response.payload.data.status);
-                        navigate("../list-item");
+                        navigate("/list-item");
                     }
                 } else {
                     form.reset();

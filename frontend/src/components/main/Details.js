@@ -96,7 +96,7 @@ const Details = (props) => {
                     blur: 3,
                 }}
             >
-                <form className="car-form" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
+                <form onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
 
                     {/* Modal content */}
                     <Select
@@ -105,7 +105,7 @@ const Details = (props) => {
                         radius="md"
                         name="car_id"
                         value = { form.values.car_id}
-                        onChange={(event) => form.setFieldValue('car_id', event.value)}
+                        onChange={(event) => form.setFieldValue('car_id', event)}
                         placeholder="Select"
                         data={[
                             { value: selectedCar.id, label: selectedCar.model },
