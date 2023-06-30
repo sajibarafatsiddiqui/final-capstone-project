@@ -19,7 +19,7 @@ class Api::V1::CarsController < ApplicationController
 
   def show
     @car = Car.find(params[:id])
-    render json: { id: @car.car_id, model: @car.car_model, rent_price: @car.rent_price, status: @car.car_status,
+    render json: { id: @car.id, model: @car.car_model, rent_price: @car.rent_price, status: @car.car_status,
                    image: @car.car_image }
   end
 
