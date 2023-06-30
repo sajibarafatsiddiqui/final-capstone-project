@@ -8,6 +8,7 @@ import { DateInput } from "@mantine/dates";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCarDetails } from "../../redux/cars";
 import { useForm } from "@mantine/form";
+import { saveReservation } from "../../redux/rental";
 
 const Details = (props) => {
     const { id } = useParams();
@@ -39,9 +40,15 @@ const Details = (props) => {
         },
     });
 
-    // let selectedCar = {};
+    const handleSubmitForm = (data)=>{
+        console.log(data.values);
+        setLoading(true);
+        dispatch(saveReservation(data.values));
+        form.reset();
+        setLoading(false);
+        close;
+    }
 
-    // const { selectedCar } = useSelector((state) => state.selectedCar);
     return (
         <div className="details-container">
             {/* back home button with absolute style */}
@@ -71,7 +78,6 @@ const Details = (props) => {
 
                 {/* logo car */}
                 <div style={{ paddingTop: 20, alignItems: 'end', justifyContent: 'end', display: 'flex', flexDirection: 'column' }}>
-                    {/* <p style={{margin:0}}>Car Brand</p> */}
                     <Image src="https://png.pngtree.com/png-clipart/20221010/original/pngtree-20-discount-tag-png-image_8671801.png" height={120} width="auto" />
                 </div>
 
@@ -104,16 +110,6 @@ const Details = (props) => {
                             { value: selectedCar.id, label: selectedCar.model },
                         ]}
                     />
-                    {/* <Select
-                    size="sm"
-                    label="User"
-                    radius="md"
-                    value="1"
-                    placeholder="Select"
-                    data={[
-                        { value: '1', label: 'Israel CHIZUNGU' },
-                    ]}
-                /> */}
                     <DateInput
                         label="Date"
                         name="date_rent"
