@@ -34,7 +34,7 @@ const Details = (props) => {
 
     const form = useForm({
         initialValues: {
-            car_id: '',
+            car_id: id,
             date_rent: '',
             date_return: '',
             destination:''
@@ -103,12 +103,12 @@ const Details = (props) => {
                         size="sm"
                         label="Car model"
                         radius="md"
-                        name="car_id"
-                        value = { form.values.car_id}
-                        onChange={(event) => form.setFieldValue('car_id', event)}
+                        name=""
+                        value = { id}
+                        onChange={(event) => form.setFieldValue('car_id', id)}
                         placeholder="Select"
                         data={[
-                            { value: selectedCar.id, label: selectedCar.model },
+                            { value: selectedCar.car_id, label: selectedCar.model },
                         ]}
                     />
                     <DateInput
@@ -118,11 +118,11 @@ const Details = (props) => {
                         maw={400}
                         mx="auto"
                         value = { form.values.date_rent}
-                        onChange={(event) => form.setFieldValue('date_rent', event.currentTarget.value)}
+                        onChange={(event) => form.setFieldValue('date_rent', event)}
                     />
                     <DateInput
                         value = { form.values.date_return}
-                        onChange={(event) => form.setFieldValue('date_return', event.currentTarget.value)}
+                        onChange={(event) => form.setFieldValue('date_return', event)}
                         label="Date"
                         name="date_return"
                         placeholder="Date input"
