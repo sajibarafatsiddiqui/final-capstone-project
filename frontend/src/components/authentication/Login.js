@@ -1,41 +1,64 @@
-import React from 'react';
-import { useToggle, upperFirst } from '@mantine/hooks';
+import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 import {
     TextInput,
-    PasswordInput,
     Text,
-    Paper,
     Group,
-    PaperProps,
     Button,
     Divider,
-    Checkbox,
-    Anchor,
     Stack,
     Image,
+    Alert,
 } from '@mantine/core';
-import { IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react';
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
-// import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { signinReducer } from '../../redux/authentication';
+import Cookies from 'js-cookie';
+import { IconAlertCircle } from '@tabler/icons-react';
 
-function Login(props) {
-    const [type, toggle] = useToggle(['login', 'register']);
+const Login = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    // const { user } = useSelector((state) => state.user);
+
     const form = useForm({
         initialValues: {
-            email: '',
-            name: '',
-            password: '',
-            terms: true,
+            email: ''
         },
 
         validate: {
             email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-            password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
         },
     });
+
+    const handleLogin = async data => {
+        setLoading(true);
+        dispatch(signinReducer(data.values)).then(
+            response => {
+                if (response.payload !== undefined) {
+                    if (response.payload.data.status == "ok") {
+                        setLoading(false);
+                        Cookies.set('_backend_session', response.payload.data.status);
+                        navigate("../list-item");
+                    }
+                } else {
+                    form.reset();
+                    setLoading(false)
+                    form.setFieldError('email')
+                }
+            }
+        );
+
+
+        // console.log(response);
+        // console.log(user);
+        // navigate("../list-item");
+        // console.log(data.values);
+        // signIn(data.values, dispatch);
+        console.log(data.values);
+    }
 
     return (
         <div className='login-wrapper'>
@@ -49,55 +72,28 @@ function Login(props) {
 
                 <Divider label="Login with Email and password" labelPosition="center" my="lg" />
 
-                <form onSubmit={form.onSubmit(() => { navigate("../list-item") })}>
+                <form onSubmit={form.onSubmit(() => handleLogin(form))}>
                     <Stack>
-                        {type === 'register' && (
-                            <TextInput
-                                label="Name"
-                                placeholder="Your name"
-                                value={form.values.name}
-                                onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
-                                radius="md"
-                            />
-                        )}
-
                         <TextInput
                             required
                             label="Email"
-                            placeholder="hello@mantine.dev"
+                            placeholder="example@email.com"
                             value={form.values.email}
                             onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
                             error={form.errors.email && 'Invalid email'}
                             radius="md"
                         />
-
-                        <PasswordInput
-                            required
-                            label="Password"
-                            placeholder="Your password"
-                            value={form.values.password}
-                            onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-                            error={form.errors.password && 'Password should include at least 6 characters'}
-                            radius="md"
-                        />
-
-                        {type === 'register' && (
-                            <Checkbox
-                                label="I accept terms and conditions"
-                                checked={form.values.terms}
-                                onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
-                            />
-                        )}
                     </Stack>
 
                     <Group position="apart" mt="xl">
-                        <Link to="../signup" style={{fontSize:10}}>Don't have an account? Register</Link>
-                        <Button type="submit" radius="sm" color='lime'>
+                        <Link to="../signup" style={{ fontSize: 10 }}>Don't have an account? Register</Link>
+                        <Button type="submit" radius="sm" color='lime' loading={loading}>
                             Login
                         </Button>
                     </Group>
                 </form>
             </div>
+            
         </div>
     );
 }

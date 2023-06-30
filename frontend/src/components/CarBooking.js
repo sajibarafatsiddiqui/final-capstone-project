@@ -10,6 +10,7 @@ import './CarBooking.css'
 import LandingPage from './authentication/LandingPage';
 import Login from './authentication/Login';
 import Signup from './authentication/Signup';
+import ProtectedRoute from '../util/ProtectedRoute';
 
 function CarBooking() {
     return (
@@ -17,14 +18,15 @@ function CarBooking() {
             <div className='app-body'>
                 {/* routes */}
                 <Routes>
-                    <Route path='/' element={<LandingPage />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/Signup' element={<Signup />} />
-                    <Route path='/list-item' element={<><Navigation /><ListItem /></>} />
-                    <Route path='/details/:id' element={<><Navigation /><Details /></>} />
-                    <Route path='/my-reservations' element={<><Navigation /><MyReservations /></>} />
-                    <Route path='/delete-item' element={<><Navigation /><DeleteItemList /></>} />
-                    <Route path='/add-item' element={<><Navigation /><AddItem /></>} />
+                    <Route path='/' element={<LandingPage />} />
+                    <Route path='/list-item' element={<ProtectedRoute><Navigation /><ListItem /></ProtectedRoute>} />
+                    <Route path='/details/:id' element={<ProtectedRoute><Navigation /><Details /></ProtectedRoute>} />
+                    <Route path='/my-reservations' element={<ProtectedRoute><Navigation /><MyReservations /></ProtectedRoute>} />
+                    <Route path='/delete-item' element={<ProtectedRoute><Navigation /><DeleteItemList /></ProtectedRoute>} />
+                    <Route path='/add-item' element={<ProtectedRoute><Navigation /><AddItem /></ProtectedRoute>} />
+
                 </Routes>
             </div>
         </BrowserRouter>

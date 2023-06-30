@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddItem.css"
 import { Button, FileInput, Group, Input, NumberInput, Select, Stack, TextInput } from "@mantine/core";
 import { IconPlus, IconUpload } from "@tabler/icons-react";
+import { useDispatch } from "react-redux";
+import { saveCar } from "../../redux/cars";
+import { useForm } from "@mantine/form";
 const AddItem = () => {
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const form = useForm({
+        initialValues: {
+            image: '',
+            car_model: '',
+            status: '',
+            rent_price:''
+        },
+    });
+
+    const handleSubmitForm = (data)=>{
+
+        dispatch(saveCar(data.values));
+    }
+
     return (
         <div className="main-container">
             {/* header */}
@@ -10,15 +29,17 @@ const AddItem = () => {
                 <h2 className="title-headline">ADD A NEW CAR</h2>
                 <p className="subtitle-headline">Record a new car for renting</p>
             </div>
-            <form className="car-form" onSubmit={() => console.log('form submitted')}>
+            <form className="car-form" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
                 <Stack>
                     <TextInput
                         label="Model"
+                        name="car_model"
                         placeholder="Enter the car model"
                         radius="md"
                     />
                     <NumberInput
                         label="Price"
+                        name="rent_price"
                         radius="md"
                         defaultValue={1000}
                         parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -31,17 +52,23 @@ const AddItem = () => {
                     <Select
                         label="Status"
                         radius="md"
+                        name="status"
                         placeholder="Pick one"
                         data={[
                             { value: 'new', label: 'New' },
                             { value: 'used', label: 'Used' },
                         ]}
                     />
-                    <FileInput label="Car image" placeholder="Click to upload" icon={<IconUpload size={14} />} />
+                    <TextInput
+                        label="Image"
+                        name="image"
+                        placeholder="paste the URL to the image"
+                        radius="md"
+                    />
                 </Stack>
 
                 <Group position="apart" mt="xl" style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Button type="submit" radius="sm" color="lime" name="SAVE CAR" leftIcon={<IconPlus />} loading>
+                    <Button type="submit" radius="sm" color="lime" name="SAVE CAR" leftIcon={<IconPlus />} loading={loading}>
                         RECORD THE NEW CAR
                     </Button>
                 </Group>

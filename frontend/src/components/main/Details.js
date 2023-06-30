@@ -5,34 +5,33 @@ import "./Details.css"
 import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
-import { tableData } from "../../helpers/datas";
+import { useSelector } from "react-redux";
 
-const Details = () => {
+const Details = (props) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [opened, { open, close }] = useDisclosure(false);
     const [value, setValue] = useState(null);
     const theme = useMantineTheme();
 
-    const selectedCar = tableData.filter((data) => data.id == id);
-    console.log(selectedCar[0]);
+    const { selectedCar } = useSelector((state) => state.selectedCar);
     return (
         <div className="details-container">
             {/* back home button with absolute style */}
             <Button leftIcon={<IconArrowLeft />} variant="subtle" color="dark" className="back-home-btn" onClick={() => navigate("../list-item")}>Back to Car list</Button>
             <div className="details-image-container">
-                <Image src={selectedCar[0].image} width="80%" height="auto" />
+                <Image src={selectedCar.image} width="80%" height="auto" />
             </div>
             <div className="details-info-container">
-                <h2 className="car-name-info-detail">{selectedCar[0].model}</h2>
+                <h2 className="car-name-info-detail">{selectedCar.model}</h2>
                 <p className="car-desc-info-detail">Edition 2017, Sport HSE 4.0L V8</p>
                 <div className="details-info-gray">
                     <p>Status</p>
-                    <p>${selectedCar[0].status}</p>
+                    <p>${selectedCar.status}</p>
                 </div>
                 <div className="details-info-light">
                     <p>Renting Price</p>
-                    <p>${selectedCar[0].price}</p>
+                    <p>${selectedCar.price}</p>
                 </div>
                 <div className="details-info-gray">
                     <p>Number of seats</p>
@@ -68,10 +67,10 @@ const Details = () => {
                     size="sm"
                     label="Car model"
                     radius="md"
-                    value={selectedCar[0].id}
+                    value={selectedCar.id}
                     placeholder="Select"
                     data={[
-                        { value: selectedCar[0].id, label: selectedCar[0].model },
+                        { value: selectedCar.id, label: selectedCar.model },
                     ]}
                 />
                 <Select

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from 'react';
 import {
     createStyles,
@@ -17,6 +17,8 @@ import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch, IconEraser } from '@tabler/icons-react';
 import { tableData } from "../../helpers/datas";
 import "./DeleteItemList.css"
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCars } from "../../redux/cars";
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -88,8 +90,16 @@ function sortData(
     );
 }
 
-function DeleteItemList() {
-    const rows = tableData.map((row) => (
+function DeleteItemList(props) {
+    const { cars } = useSelector((state) => state.cars);
+    console.log(cars);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCars());
+    }, [dispatch]);
+
+    const rows = cars.map((row) => (
         <tr key={row.model}>
             <td><Image src={row.image} height={120} width="auto" radius="md" /></td>
             <td>{row.model}</td>

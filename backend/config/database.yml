@@ -24,9 +24,9 @@ default: &default
 development:
   <<: *default
   database: car_rental_api
-  port: 9595
+  # port: 9595
   username: postgres
-  password: postgres
+  password: megamind
  
 
   # The specified database role being used to connect to postgres.
@@ -62,9 +62,9 @@ development:
 test:
   <<: *default
   database: backend_test
-  port: 9595
+  # port: 9595
   user: postgres
-  password: postgres
+  password: megamind
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
