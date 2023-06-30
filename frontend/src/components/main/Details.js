@@ -20,6 +20,7 @@ const Details = (props) => {
 
     const [selectedCar, setSelectedCar] = useState({});
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         // get datas
@@ -46,7 +47,7 @@ const Details = (props) => {
         dispatch(saveReservation(data.values));
         form.reset();
         setLoading(false);
-        close;
+        close();
     }
 
     return (
@@ -132,7 +133,7 @@ const Details = (props) => {
                     value = { form.values.destination}
                     onChange={(event) => form.setFieldValue('destination', event.currentTarget.value)}
                      />
-                    <Button fullWidth mt="xl" size="md" color='lime' type="submit">
+                    <Button fullWidth mt="xl" size="md" color='lime' type="submit" loading={loading}>
                         Confirm booking
                     </Button>
                 </form>
