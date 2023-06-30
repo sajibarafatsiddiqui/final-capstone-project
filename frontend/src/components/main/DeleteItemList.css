@@ -1,0 +1,12 @@
+.delete-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    /* padding:40px; */
+}
+
+.search-input-filter {
+    width: 300px;
+    margin:40px;
+}
