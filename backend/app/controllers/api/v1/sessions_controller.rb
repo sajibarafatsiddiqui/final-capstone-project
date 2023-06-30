@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
     user = User.find_by(email: user_params[:email])
     if user 
       session[:user_id] = user.id
-      render json: { status: :ok }
+      render json: { session: session.id }
     else
       render json: { errors: ['Invalid email'] },
              status: :unprocessable_entity

@@ -37,7 +37,7 @@ const Login = () => {
             response=>{
                 // Cookies.set('_backend_session', '')
                 
-                console.log(response.headers['Set-Cookie']);
+                console.log(response);
                 // console.log(data.payload.session);
             }
         );

@@ -2,8 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 
-const cookie = Cookies.get('_backend_session');
-console.log(cookie);
+
 
 const axiosConfig ={
         withCredentials: true,
@@ -71,9 +70,7 @@ export const signUp = async ({ email, first_name, last_name, age, gender }) => {
 
 export const signIn = async ({ email }) => {
     const obj = { user: { "email": email } }
-    return await axios.post('http://127.0.0.1:5000/api/v1/login', obj,  axiosConfig).then(response => {
-        console.log(response.data)
-      });
+    return await axios.post('http://127.0.0.1:5000/api/v1/login', obj,  axiosConfig).then(response => { localStorage.setItem('userId', response.data.session.public_id);})
 };
 
 export const signOut = async () => {

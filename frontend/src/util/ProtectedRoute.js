@@ -9,8 +9,8 @@ const ProtectedRoute = (props) => {
 
     const checkUserToken = () => {
         // const userToken = localStorage.getItem('user-token');
-        const userToken = Cookies.get('_backend_session');
-        if (!userToken || userToken === 'undefined') {
+        const userId = localStorage.getItem('userId');
+        if (!userId || userId === 'undefined') {
             setIsLoggedIn(false);
 
             // display notification
