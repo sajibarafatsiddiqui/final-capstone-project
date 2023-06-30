@@ -1,9 +1,12 @@
 class Api::V1::CarsController < ApplicationController
+  def index
+    @cars = Car.all
+    render json: @cars.map { |car|
+                   { id: car.id, model: car.car_model, rent_price: car.rent_price, status: car.car_status,
+                     image: car.car_image }
+                 }
+  end
 
-    def index
-        @cars = Car.all
-        render json: @cars.map { |car| { id: car.id, model: car.car_model, rent_price: car.rent_price, status: car.car_status, image: car.car_image } }
-    end
   def create
     @car = Car.new(car_params)
 
@@ -16,7 +19,8 @@ class Api::V1::CarsController < ApplicationController
 
   def show
     @car = Car.find(params[:id])
-    render json: { model: @car.car_model, rent_price: @car.rent_price, status: @car.car_status, image: @car.car_image }
+    render json: { model: @car.car_model, rent_price: @car.rent_price, status: @car.car_status,
+                   image: @car.car_image }
   end
 
   def destroy
