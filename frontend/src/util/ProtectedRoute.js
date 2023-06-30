@@ -14,15 +14,13 @@ const ProtectedRoute = (props) => {
             setIsLoggedIn(false);
 
             // display notification
-            notifications.show({
-                title: 'Authentication Failed',
-                message: 'Please sign in to access the App! 🤥',
-                color:'red'
-              })
 
             return navigate('../login');
+        }else{
+            setIsLoggedIn(true);
+            navigate('../list-item');
         }
-        setIsLoggedIn(true);
+        
     }
     useEffect(() => {
             checkUserToken();

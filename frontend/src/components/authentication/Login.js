@@ -8,12 +8,14 @@ import {
     Divider,
     Stack,
     Image,
+    Alert,
 } from '@mantine/core';
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signinReducer } from '../../redux/authentication';
 import Cookies from 'js-cookie';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -31,16 +33,26 @@ const Login = () => {
         },
     });
 
-    const handleLogin = data => {
+    const handleLogin = async data => {
         setLoading(true);
         dispatch(signinReducer(data.values)).then(
-            response=>{
-                // Cookies.set('_backend_session', '')
-                
-                console.log(response);
-                // console.log(data.payload.session);
+  
+            response => {
+                if (response.payload !== undefined) {
+                    if (response.payload.data.status == "ok") {
+                        setLoading(false);
+                        Cookies.set('_backend_session', response.payload.data.status);
+                        navigate("../list-item");
+                    }
+                } else {
+                    form.reset();
+                    setLoading(false)
+                    form.setFieldError('email')
+                }
             }
         );
+
+
         // console.log(response);
         // console.log(user);
         // navigate("../list-item");
@@ -82,6 +94,7 @@ const Login = () => {
                     </Group>
                 </form>
             </div>
+            
         </div>
     );
 }
