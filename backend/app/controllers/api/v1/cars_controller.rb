@@ -1,5 +1,7 @@
 class Api::V1::CarsController < ApplicationController
 
+  include ::ActionController::Cookies
+
     def index
         @cars = Car.all
         render json: @cars.map { |car| { id: car.id, model: car.car_model, rent_price: car.rent_price, status: car.car_status, image: car.car_image } }

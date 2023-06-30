@@ -18,7 +18,7 @@ const AddItem = () => {
     });
 
     const handleSubmitForm = (data)=>{
-
+        console.log(data.valus)
         dispatch(saveCar(data.values));
     }
 
@@ -36,6 +36,7 @@ const AddItem = () => {
                         name="car_model"
                         placeholder="Enter the car model"
                         radius="md"
+                        value = { form.values.car_model}
                     />
                     <NumberInput
                         label="Price"
@@ -48,6 +49,7 @@ const AddItem = () => {
                                 ? `USD ${value}`.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
                                 : 'USD '
                         }
+                        value = {form.values.rent_price}
                     />
                     <Select
                         label="Status"
@@ -58,12 +60,14 @@ const AddItem = () => {
                             { value: 'new', label: 'New' },
                             { value: 'used', label: 'Used' },
                         ]}
+                        value = {form.values.status}
                     />
                     <TextInput
                         label="Image"
                         name="image"
                         placeholder="paste the URL to the image"
                         radius="md"
+                        value = {form.values.image}
                     />
                 </Stack>
 
