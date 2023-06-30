@@ -87,7 +87,6 @@ GEM
       warden-jwt_auth (~> 0.8)
     devise-passwordless (0.7.1)
       devise
-    diff-lcs (1.5.0)
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
@@ -179,23 +178,6 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.5)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-rails (6.0.3)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
-      rspec-core (~> 3.12)
-      rspec-expectations (~> 3.12)
-      rspec-mocks (~> 3.12)
-      rspec-support (~> 3.12)
-    rspec-support (3.12.0)
     thor (1.2.2)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -229,11 +211,10 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors (~> 2.0)
   rails (~> 7.0.5)
-  rspec-rails
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.2.1p31
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.13
