@@ -1,9 +1,24 @@
-import { Button, Image, Notification, RingProgress } from "@mantine/core";
+import { Button, Image, Notification, RingProgress, Skeleton } from "@mantine/core";
 import { IconCalendarCheck, IconCheck, IconEraser, IconLockCancel, IconMessageCancel, IconMultiplier1x, IconRoad, IconShoppingCartX, IconUser } from "@tabler/icons-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchCarDetails } from "../../redux/cars";
+import { useDispatch } from "react-redux";
 
 const ReservationItem = (props) => {
     const data = props.data;
+
+    const [loadImage, setLoadImage] = useState(true);
+    const [carImage, setCarImage] = useState('');
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCarDetails(data.car_id)).then(
+            response => {
+                setLoadImage(false);
+                setCarImage(response.payload.data.image);
+            }
+        );
+    }, [])
 
     const _displayNotification = () => {
         return (
@@ -15,7 +30,17 @@ const ReservationItem = (props) => {
 
     return (
         <div style={{ width: '95%', height: '120px', padding: 5, margin: 10, display: 'flex', justifyContent: 'flex-start', borderBottom: '1px solid gray' }}>
-            <Image className="item-image" height='110px' width='auto' maw={240} mx="auto" radius="md" src={data.image}alt="car cover image" />
+
+            {loadImage === true ?
+                <div style={{ display: 'flex', flexDirection: 'column', width: '150px' }}>
+                    <Skeleton height={8} radius="xl" />
+                    <Skeleton height={8} mt={6} radius="xl" />
+                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
+                </div>
+                :
+                <Image className="item-image" height='110px' width='auto' maw={240} mx="auto" radius="md" src={carImage} alt="car cover image" />
+            }
+            {/* */}
             <div style={{ marginLeft: 10, width: 250 }}>
                 <h3 style={{ margin: 0, padding: 0 }}>{data.model}</h3>
                 <p style={{ margin: 0, padding: 0, fontSize: 12, width: 180, flexWrap: 'wrap' }}>Lorem ipsum...</p>
@@ -24,7 +49,7 @@ const ReservationItem = (props) => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>
                 <IconCalendarCheck size={50} color="gray" />
-                <h5 style={{ fontWeight: 'normal' }}>{data.date_rent.substring(0,10)} - {data.date_return.substring(0,10)}</h5>
+                <h5 style={{ fontWeight: 'normal' }}>{data.date_rent.substring(0, 10)} - {data.date_return.substring(0, 10)}</h5>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>
                 <IconRoad size={50} color="gray" />
@@ -32,7 +57,7 @@ const ReservationItem = (props) => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>
                 <IconUser size={50} color="gray" />
-                <h5 style={{ fontWeight: 'normal' }}>  {data.user_id} </h5>
+                <h5 style={{ fontWeight: 'normal' }}>  {localStorage.getItem('user_last_name')}</h5>
             </div>
         </div>
     )

@@ -41,7 +41,8 @@ const Login = () => {
                 if (response.payload !== undefined) {
                     if (response.payload.data.status == "ok") {
                         setLoading(false);
-                        Cookies.set('_backend_session', response.payload.data.status);
+                        console.log(response.payload);
+                        // Cookies.set('_backend_session', response.payload.data.status);
                         navigate("/list-item");
                     }
                 } else {

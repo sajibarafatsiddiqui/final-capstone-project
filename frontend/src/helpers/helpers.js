@@ -75,7 +75,7 @@ export const signUp = async ({ email, first_name, last_name, age, gender }) => {
 
 export const signIn = async ({ email }) => {
     const obj = { user: { "email": email } }
-    return await axios.post('http://localhost:5000/api/v1/login', obj,  axiosConfig).then(response => { localStorage.setItem('userId', response.data.session.public_id);})
+    return await axios.post('http://localhost:5000/api/v1/login', obj,  axiosConfig).then(response => { localStorage.setItem('userId', response.data.session.public_id); localStorage.setItem('user_last_name', response.data.last_name)})
 
 };
 
