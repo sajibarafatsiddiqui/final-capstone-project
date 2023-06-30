@@ -3,7 +3,7 @@
 
 <div align="center">
   <h1><b>Car Renting App</b></h1>
-    <img src='./frontend/public/car%20booking%20logo.png'/>
+    <img src='./frontend/public/car%20booking%20logo.png' height="120px" width="auto"/>
 </div>
 
 <!-- TABLE OF CONTENTS -->
