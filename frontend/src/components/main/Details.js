@@ -1,20 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Image, Modal, Select, TextInput, useMantineTheme } from "@mantine/core";
 import { IconArrowLeft, IconBrandBooking, IconTicket } from "@tabler/icons-react";
 import "./Details.css"
 import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCarDetails } from "../../redux/cars";
+import { useForm } from "@mantine/form";
 
 const Details = (props) => {
     const { id } = useParams();
+    console.log(props.data);
     const navigate = useNavigate();
     const [opened, { open, close }] = useDisclosure(false);
     const [value, setValue] = useState(null);
     const theme = useMantineTheme();
 
-    const { selectedCar } = useSelector((state) => state.selectedCar);
+    const [selectedCar, setSelectedCar] = useState({});
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // get datas
+        dispatch(fetchCarDetails(id)).then(
+            response => {
+                setSelectedCar(response.payload.data);
+                console.log(response.payload.data);
+            }
+        )
+    }, [dispatch]);
+
+    const form = useForm({
+        initialValues: {
+            car_id: '',
+            date_rent: '',
+            date_return: '',
+            destination:''
+        },
+    });
+
+    // let selectedCar = {};
+
+    // const { selectedCar } = useSelector((state) => state.selectedCar);
     return (
         <div className="details-container">
             {/* back home button with absolute style */}
@@ -27,11 +54,11 @@ const Details = (props) => {
                 <p className="car-desc-info-detail">Edition 2017, Sport HSE 4.0L V8</p>
                 <div className="details-info-gray">
                     <p>Status</p>
-                    <p>${selectedCar.status}</p>
+                    <p>{selectedCar.status}</p>
                 </div>
                 <div className="details-info-light">
                     <p>Renting Price</p>
-                    <p>${selectedCar.price}</p>
+                    <p>${selectedCar.rent_price}</p>
                 </div>
                 <div className="details-info-gray">
                     <p>Number of seats</p>
@@ -62,18 +89,22 @@ const Details = (props) => {
                     blur: 3,
                 }}
             >
-                {/* Modal content */}
-                <Select
-                    size="sm"
-                    label="Car model"
-                    radius="md"
-                    value={selectedCar.id}
-                    placeholder="Select"
-                    data={[
-                        { value: selectedCar.id, label: selectedCar.model },
-                    ]}
-                />
-                <Select
+                <form className="car-form" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
+
+                    {/* Modal content */}
+                    <Select
+                        size="sm"
+                        label="Car model"
+                        radius="md"
+                        name="car_id"
+                        value = { form.values.car_id}
+                        onChange={(event) => form.setFieldValue('car_id', event.value)}
+                        placeholder="Select"
+                        data={[
+                            { value: selectedCar.id, label: selectedCar.model },
+                        ]}
+                    />
+                    {/* <Select
                     size="sm"
                     label="User"
                     radius="md"
@@ -82,19 +113,33 @@ const Details = (props) => {
                     data={[
                         { value: '1', label: 'Israel CHIZUNGU' },
                     ]}
-                />
-                <DateInput
-                    value={value}
-                    onChange={setValue}
-                    label="Date"
-                    placeholder="Date input"
-                    maw={400}
-                    mx="auto"
-                />
-                <TextInput label="City" placeholder="Enter the city" size="md" />
-                <Button fullWidth mt="xl" size="md" color='lime'>
-                    Confirm booking
-                </Button>
+                /> */}
+                    <DateInput
+                        label="Date"
+                        name="date_rent"
+                        placeholder="Date input"
+                        maw={400}
+                        mx="auto"
+                        value = { form.values.date_rent}
+                        onChange={(event) => form.setFieldValue('date_rent', event.currentTarget.value)}
+                    />
+                    <DateInput
+                        value = { form.values.date_return}
+                        onChange={(event) => form.setFieldValue('date_return', event.currentTarget.value)}
+                        label="Date"
+                        name="date_return"
+                        placeholder="Date input"
+                        maw={400}
+                        mx="auto"
+                    />
+                    <TextInput label="City" placeholder="Enter the city" name ="destination" size="md"
+                    value = { form.values.destination}
+                    onChange={(event) => form.setFieldValue('destination', event.currentTarget.value)}
+                     />
+                    <Button fullWidth mt="xl" size="md" color='lime' type="submit">
+                        Confirm booking
+                    </Button>
+                </form>
             </Modal>
         </div>
     )

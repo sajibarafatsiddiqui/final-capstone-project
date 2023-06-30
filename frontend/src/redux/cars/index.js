@@ -7,6 +7,7 @@ const DELETE = 'rental/cars/DELETE';
 
 export const fetchCars = createAsyncThunk(FETCH, async () => {
     const cars = await getCars();
+    console.log(cars);
     return cars;
 });
 
@@ -28,14 +29,22 @@ export const saveCar = createAsyncThunk(ADD, async (car) => {
 
 const initialState = {
     cars: [],
-    selectedCar: {}
 };
 
+// const FetchCarReducer = (state = initialStates, action) => {
+//     switch (action.type) {
+//         case FETCH:
+//             return [...state, action.payload];
+//         default:
+//             return state;
+//     }
+// };
 
 
 const carsSlice = createSlice({
     name: 'rental/cars',
     initialState,
+    // reducers:FetchCarReducer,
     extraReducers: {
         [fetchCars.fulfilled]: (state, action) => {
             const currentState = state;

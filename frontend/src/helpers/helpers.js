@@ -14,23 +14,25 @@ const axiosConfig ={
 
 // get cars from API
 export const getCars = async () => {
-    const cars = await axios.get('http://localhost:5000/api/v1/cars',axiosConfig).then( response => console.log(response.data))
+    const cars = await axios.get('http://localhost:5000/api/v1/cars',axiosConfig);
+    console.log(cars.data);
 
-    return Object.entries(cars.data).map((car) => {
-        const [{ id, car_model, rent_price, status, image }] = car;
-        return {
-            id,
-            car_model,
-            rent_price,
-            status,
-            image
-        };
-    });
+    return cars.data;
+    // Object.entries(cars.data).map((car) => {
+    //     const [{ id, car_model, rent_price, status, image }] = car;
+    //     return {
+    //         id,
+    //         car_model,
+    //         rent_price,
+    //         status,
+    //         image
+    //     };
+    // });
 };
 
 
 export const getCarDetails = async (id) => {
-    const carDetail = await axios.get(`http://localhost:5000/api/v1/cars${id}`, axiosConfig);
+    const carDetail = await axios.get(`http://localhost:5000/api/v1/cars/${id}`, axiosConfig);
     return carDetail;
 };
 
@@ -45,7 +47,8 @@ export const addCar = async ({ id, car_model, rent_price, status, image }) => {
 
 // get rentals from API
 export const getRentals = async () => {
-    const rentals = await axios.get('/rentals', axiosConfig);
+    const rentals = await axios.get('http://localhost:5000/api/v1/rentals', axiosConfig);
+    // return rentals;
     return Object.entries(rentals.data).map((reservation) => {
         const [{ id, date_rent, date_return, destination, user_id, car_id }] = reservation;
         return {

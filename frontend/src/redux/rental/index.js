@@ -5,7 +5,7 @@ const FETCH = 'rental/reservations/FETCH';
 const ADD = 'rental/reservations/ADD';
 const DELETE = 'rental/reservations/DELETE';
 
-export const fetchReservation = createAsyncThunk(FETCH, async () => {
+export const fetchReservations = createAsyncThunk(FETCH, async () => {
     const reservations = await getRentals();
     return reservations;
 });
@@ -30,7 +30,7 @@ const reservationsSlice = createSlice({
     name: 'rental/reservations',
     initialState,
     extraReducers: {
-        [fetchReservation.fulfilled]: (state, action) => {
+        [fetchReservations.fulfilled]: (state, action) => {
             const currentState = state;
             currentState.reservations = action.payload;
         },
