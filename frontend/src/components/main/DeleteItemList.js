@@ -8,17 +8,17 @@ import {
     Group,
     Text,
     Center,
-    TextInput,
     rem,
     Image,
     Button,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
-import { IconSelector, IconChevronDown, IconChevronUp, IconSearch, IconEraser } from '@tabler/icons-react';
-import { tableData } from "../../helpers/datas";
+import { IconSelector, IconChevronDown, IconChevronUp, IconEraser } from '@tabler/icons-react';
 import "./DeleteItemList.css"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../../redux/cars";
+import { toast } from "react-toast";
+
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -90,29 +90,42 @@ function sortData(
     );
 }
 
-function DeleteItemList(props) {
+const DeleteItemList = (props) => {
+    const [myCars, setMyCars] = useState([]);
     const { cars } = useSelector((state) => state.cars);
     console.log(cars);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCars());
+        // get datas
+        dispatch(fetchCars()).then(
+            response => {
+                setMyCars(response.payload);
+            }
+        )
     }, [dispatch]);
 
-    const rows = cars.map((row) => (
+    const removeCar = (id) => {
+        let newArray = myCars.filter((item) => item.id !== id)
+        setMyCars(newArray);
+        toast.success('Car removed!');
+    }
+
+
+    const rows = myCars.map((row) => (
         <tr key={row.model}>
             <td><Image src={row.image} height={120} width="auto" radius="md" /></td>
             <td>{row.model}</td>
             <td>{row.status}</td>
-            <td>{row.price}</td>
-            <td><Button leftIcon={<IconEraser />} color="red">Delete</Button></td>
+            <td>{row.rent_price}</td>
+            <td><Button leftIcon={<IconEraser />} color="red" onClick={()=>removeCar(row.id)}>Delete</Button></td>
         </tr>
     ));
 
     return (
         // <ScrollArea>
         <div className="delete-list-wrapper">
-            <div className="title-header" style={{padding:20}}>
+            <div className="title-header" style={{ padding: 20 }}>
                 <h2 className="title-headline">LIST OF CARS</h2>
             </div>
 
@@ -132,7 +145,7 @@ function DeleteItemList(props) {
                             rows
                         ) : (
                             <tr>
-                                <td colSpan={Object.keys(tableData[0]).length}>
+                                <td colSpan={5}>
                                     <Text weight={500} align="center">
                                         Nothing found
                                     </Text>
@@ -143,7 +156,6 @@ function DeleteItemList(props) {
                 </Table>
             </ScrollArea>
         </div>
-        // </ScrollArea>
 
     );
 }

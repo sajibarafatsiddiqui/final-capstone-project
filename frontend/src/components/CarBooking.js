@@ -11,11 +11,13 @@ import LandingPage from './authentication/LandingPage';
 import Login from './authentication/Login';
 import Signup from './authentication/Signup';
 import ProtectedRoute from '../util/ProtectedRoute';
+import { ToastContainer, toast } from 'react-toast'
 
-function CarBooking() {
+const CarBooking = () => {
     return (
         <BrowserRouter>
             <div className='app-body'>
+                
                 {/* routes */}
                 <Routes>
                     <Route path='/login' element={<Login />} />
@@ -28,6 +30,7 @@ function CarBooking() {
                     <Route path='/add-item' element={<ProtectedRoute><Navigation /><AddItem /></ProtectedRoute>} />
 
                 </Routes>
+                <ToastContainer position="bottom-right" delay={1500}/>
             </div>
         </BrowserRouter>
     )

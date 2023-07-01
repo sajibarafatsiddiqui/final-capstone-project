@@ -1,42 +1,33 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router';
 
-// const cookie = Cookies.get('_backend_session');
-// console.log(cookie);
-
-const axiosConfig ={
-        withCredentials: true,
-        headers: {'Cache-Control': 'max-age=9999'}
+axios.defaults.withCredentials = true
+const axiosConfig = {
+    withCredentials: true,
+    headers: {
+        "Content-Type": "application/json",
+    },
 }
 
 
 // get cars from API
 export const getCars = async () => {
-    const cars = await axios.get('http://127.0.0.1:5000/api/v1/cars', axiosConfig);
+    const cars = await axios.get('http://localhost:5000/api/v1/cars', axiosConfig);
+    console.log(cars.data);
 
-    return Object.entries(cars.data).map((car) => {
-        const [{ id, car_model, rent_price, status, image }] = car;
-        return {
-            id,
-            car_model,
-            rent_price,
-            status,
-            image
-        };
-    });
+    return cars.data;
 };
 
 
 export const getCarDetails = async (id) => {
-    const carDetail = await axios.get(`http://127.0.0.1:5000/api/v1/cars${id}`, axiosConfig);
+    const carDetail = await axios.get(`http://localhost:5000/api/v1/cars/${id}`, axiosConfig);
     return carDetail;
 };
 
 // add a new car using API 
 export const addCar = async ({ id, car_model, rent_price, status, image }) => {
     const obj = { car: { "car_model": car_model, "rent_price": rent_price, "car_status": status, "car_image": image } }
-    await axios.post('http://127.0.0.1:5000/api/v1/cars', obj, axiosConfig);
+    await axios.post('http://localhost:5000/api/v1/cars', obj, axiosConfig);
 };
 
 // delete car
@@ -44,39 +35,28 @@ export const addCar = async ({ id, car_model, rent_price, status, image }) => {
 
 // get rentals from API
 export const getRentals = async () => {
-    const rentals = await axios.get('/rentals', axiosConfig);
-    return Object.entries(rentals.data).map((reservation) => {
-        const [{ id, date_rent, date_return, destination, user_id, car_id }] = reservation;
-        return {
-            id,
-            date_rent,
-            date_return,
-            destination,
-            user_id,
-            car_id
-        };
-    });
+    const rentals = await axios.get('http://localhost:5000/api/v1/rentals', axiosConfig);
+    return rentals;
 };
 
-export const addRental = async ({ id, date_rent, date_return, destination }) => {
-    const obj = { rental: { "car_id": id, "date_rent": date_rent, "date_return": date_return, "destination": destination } }
-    await axios.post('http://127.0.0.1:5000/api/v1/rentals', obj, axiosConfig);
+export const addRental = async ({ car_id, date_rent, date_return, destination }) => {
+    const obj = { rental: { "car_id": car_id, "date_rent": date_rent, "date_return": date_return, "destination": destination } }
+    await axios.post('http://localhost:5000/api/v1/rentals', obj, axiosConfig);
 };
 // authencitation
 
 export const signUp = async ({ email, first_name, last_name, age, gender }) => {
     const obj = { user: { "email": email, "first_name": first_name, "last_name": last_name, "age": age, "gender": gender } }
-    return await axios.post('http://127.0.0.1:5000/api/v1/users', obj);
+    return await axios.post('http://localhost:5000/api/v1/users', obj);
 };
 
 export const signIn = async ({ email }) => {
     const obj = { user: { "email": email } }
-    return await axios.post('http://127.0.0.1:5000/api/v1/login', obj,  axiosConfig)
+    return await axios.post('http://localhost:5000/api/v1/login', obj, axiosConfig)
+
 };
 
 export const signOut = async () => {
-    await Cookies.remove('_backend_session')
+    await localStorage.removeItem('userId');
     // navigate('../login');
 };
-
-// export default connectionString;

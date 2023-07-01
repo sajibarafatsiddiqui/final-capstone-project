@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import "./AddItem.css"
-import { Button, FileInput, Group, Input, NumberInput, Select, Stack, TextInput } from "@mantine/core";
-import { IconPlus, IconUpload } from "@tabler/icons-react";
+import { Button, Group, Select, Stack, TextInput } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
 import { saveCar } from "../../redux/cars";
 import { useForm } from "@mantine/form";
+import { toast } from "react-toast";
+
 const AddItem = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+
     const form = useForm({
         initialValues: {
             image: '',
             car_model: '',
             status: '',
-            rent_price:''
+            rent_price: ''
         },
     });
 
-    const handleSubmitForm = (data)=>{
-
+    const handleSubmitForm = (data) => {
+        console.log(data.values);
+        setLoading(true);
         dispatch(saveCar(data.values));
+        toast.success('Car added successfully !');
+        form.reset();
+        setLoading(false);
     }
 
     return (
@@ -32,24 +39,25 @@ const AddItem = () => {
             <form className="car-form" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
                 <Stack>
                     <TextInput
+                        required
                         label="Model"
                         name="car_model"
                         placeholder="Enter the car model"
                         radius="md"
+                        value={form.values.car_model}
+                        onChange={(event) => form.setFieldValue('car_model', event.currentTarget.value)}
                     />
-                    <NumberInput
-                        label="Price"
+                    <TextInput
+                        required
+                        label="Rent price"
                         name="rent_price"
+                        placeholder="Enter the renting price"
                         radius="md"
-                        defaultValue={1000}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        formatter={(value) =>
-                            !Number.isNaN(parseFloat(value))
-                                ? `USD ${value}`.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                                : 'USD '
-                        }
+                        value={form.values.rent_price}
+                        onChange={(event) => form.setFieldValue('rent_price', event.currentTarget.value)}
                     />
                     <Select
+                        required
                         label="Status"
                         radius="md"
                         name="status"
@@ -58,12 +66,17 @@ const AddItem = () => {
                             { value: 'new', label: 'New' },
                             { value: 'used', label: 'Used' },
                         ]}
+                        value={form.values.status}
+                        onChange={(event) => form.setFieldValue('status', event)}
                     />
                     <TextInput
+                        required
                         label="Image"
                         name="image"
                         placeholder="paste the URL to the image"
                         radius="md"
+                        value={form.values.image}
+                        onChange={(event) => form.setFieldValue('image', event.currentTarget.value)}
                     />
                 </Stack>
 

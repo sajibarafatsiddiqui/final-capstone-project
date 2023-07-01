@@ -1,10 +1,18 @@
 class ApplicationController < ActionController::API
-  include Passwordless::ControllerHelpers
+  include ::ActionController::Cookies
+
   before_action :require_user!
 
   # helper_method :current_user
 
-  private
+ def set_csrf_cookie
+  cookies["CSRF-TOKEN"] = form_authenticity_token
+end
+
+def fallback_index_html
+  render :file => 'public/index.html'
+end
+
 
   def current_user
     @current_user ||= lookup_user_by_cookie
