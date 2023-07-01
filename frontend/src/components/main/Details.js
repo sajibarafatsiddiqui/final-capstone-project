@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Image, Modal, Select, TextInput, useMantineTheme } from "@mantine/core";
-import { IconArrowLeft, IconBrandBooking, IconTicket } from "@tabler/icons-react";
+import { IconArrowLeft, IconTicket } from "@tabler/icons-react";
 import "./Details.css"
 import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
@@ -10,12 +10,12 @@ import { fetchCarDetails } from "../../redux/cars";
 import { useForm } from "@mantine/form";
 import { saveReservation } from "../../redux/rental";
 
+
 const Details = (props) => {
     const { id } = useParams();
     console.log(props.data);
     const navigate = useNavigate();
     const [opened, { open, close }] = useDisclosure(false);
-    const [value, setValue] = useState(null);
     const theme = useMantineTheme();
 
     const [selectedCar, setSelectedCar] = useState({});

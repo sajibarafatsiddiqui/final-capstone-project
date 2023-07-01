@@ -137,7 +137,7 @@ const DeleteItemList = (props) => {
                             rows
                         ) : (
                             <tr>
-                                <td colSpan={Object.keys(rows[0]).length}>
+                                <td colSpan={5}>
                                     <Text weight={500} align="center">
                                         Nothing found
                                     </Text>

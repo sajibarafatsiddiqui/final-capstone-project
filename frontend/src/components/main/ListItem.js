@@ -4,7 +4,6 @@ import { Image } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from 'react-redux';
-// import { nanoid } from '@reduxjs/toolkit';
 import { fetchCars } from "../../redux/cars";
 
 const ListItem = () => {
@@ -28,9 +27,6 @@ const ListItem = () => {
                 console.log(response.payload);
             }
         )
-        // setTimeout(()=>{
-        //     console.log(myCars);
-        // }, 4000)
     }, [dispatch]);
 
     return (
@@ -48,7 +44,6 @@ const ListItem = () => {
                     withIndicators
                     slideSize="20px"
                     height={250}
-                    // slideSize="250px"
                     slideGap="lg"
                     loop
                     align="start"

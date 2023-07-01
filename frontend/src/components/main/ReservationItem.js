@@ -7,14 +7,18 @@ import { useDispatch } from "react-redux";
 const ReservationItem = (props) => {
     const data = props.data;
     const [loadImage, setLoadImage] = useState(true);
-    const [carImage, setCarImage] = useState('');
+    // const [carImage, setCarImage] = useState('');
+    // const [carName, setCarName] = useState('Loading ...');
+    const [car, setCar] = useState({model:'Loading...', rent_price: '', status: '', image: ''});
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchCarDetails(data.car_id)).then(
             response => {
                 setLoadImage(false);
-                setCarImage(response.payload.data.image);
+                setCar({model:response.payload.data.model, rent_price: response.payload.data.rent_price, status: response.payload.data.status, image: response.payload.data.image})
+                // setCarImage(response.payload.data.image);
+                // setCarName(response.payload.data.model)
             }
         );
     }, [])
@@ -29,12 +33,12 @@ const ReservationItem = (props) => {
                     <Skeleton height={8} mt={6} width="70%" radius="xl" />
                 </div>
                 :
-                <Image className="item-image" height='110px' width='auto' maw={240} mx="auto" radius="md" src={carImage} alt="car cover image" />
+                <Image className="item-image" height='110px' width='auto' maw={240} mx="auto" radius="md" src={car.image} alt="car cover image" />
             }
             {/* */}
             <div style={{ marginLeft: 10, width: 250 }}>
-                <h3 style={{ margin: 0, padding: 0 }}>{data.model}</h3>
-                <p style={{ margin: 0, padding: 0, fontSize: 12, width: 180, flexWrap: 'wrap' }}>Lorem ipsum...</p>
+                <h3 style={{ margin: 0, padding: 0 }}>{car.model}</h3>
+                <p style={{ margin: 0, padding: 0, fontSize: 12, width: 180, flexWrap: 'wrap' }}>Rent price: {car.rent_price} | Status: {car.status}</p>
                 <Button leftIcon={<IconShoppingCartX />} color="red" size="small" style={{ padding: 5 }}>Cancel Booking</Button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>

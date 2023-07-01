@@ -12,9 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Signup.css"
 import { useDispatch } from 'react-redux';
 import { useForm } from '@mantine/form';
-import { signUp } from '../../helpers/helpers';
 import { uploadUser } from '../../redux/authentication';
-import { notifications } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 
@@ -43,15 +41,8 @@ const Signup = () => {
     const handleSubmitForm = (data) => {
         setLoading(true);
         dispatch(uploadUser(data.values));
-        // 
-        form.reset();
-        notifications.show({
-            title: 'Notification',
-            content: 'User successfully created!',
-            color: 'red',
-            autoClose: true
-        });
 
+        form.reset();
         navigate('../login');
 
     }
@@ -119,11 +110,7 @@ const Signup = () => {
 
                 <Text ta="center" mt="md">
                     Already have an account?{' '}
-                    {/* Don&apos;t have an account?{' '} */}
                     <Link to="../login">Login</Link>
-                    {/* <Anchor<'a'> href="#" weight={700} onClick={(event) => event.preventDefault()}>
-              Register
-            </Anchor> */}
                 </Text>
             </Paper>
         </div>

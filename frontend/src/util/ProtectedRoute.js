@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {  useNavigate } from "react-router-dom";
+
 const ProtectedRoute = (props) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const checkUserToken = () => {
-        // const userToken = localStorage.getItem('user-token');
         const userId = localStorage.getItem('userId');
         if (!userId || userId === 'undefined') {
             setIsLoggedIn(false);
-
-            // display notification
-
             return navigate('../login');
         }else{
             setIsLoggedIn(true);

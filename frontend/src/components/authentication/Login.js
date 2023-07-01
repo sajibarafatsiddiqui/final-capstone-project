@@ -7,21 +7,17 @@ import {
     Button,
     Divider,
     Stack,
-    Image,
-    Alert,
+    Image
 } from '@mantine/core';
 import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signinReducer } from '../../redux/authentication';
-import Cookies from 'js-cookie';
-import { IconAlertCircle } from '@tabler/icons-react';
 
 const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    // const { user } = useSelector((state) => state.user);
 
     const form = useForm({
         initialValues: {
@@ -36,31 +32,28 @@ const Login = () => {
     const handleLogin = async data => {
         setLoading(true);
         dispatch(signinReducer(data.values)).then(
-  
             response => {
+                console.log(response.payload);
                 if (response.payload !== undefined) {
-                    if (response.payload.data.status == "ok") {
-                        setLoading(false);
-                        console.log(response.payload);
-                        // Cookies.set('_backend_session', response.payload.data.status);
-                        navigate("/list-item");
-                    }
+                    localStorage.setItem('userId', response.payload.data.session.public_id);
+                    localStorage.setItem('user_last_name', response.payload.data.last_name)
+                    // setLoading(false);
+                    navigate("../list-item");
+
                 } else {
+                    displayToast();
                     form.reset();
                     setLoading(false)
                     form.setFieldError('email')
                 }
+                setLoading(false)
             }
         );
-
-
-        // console.log(response);
-        // console.log(user);
-        // navigate("../list-item");
-        // console.log(data.values);
-        // signIn(data.values, dispatch);
-        console.log(data.values);
     }
+
+    const displayToast =()=>{
+
+    };
 
     return (
         <div className='login-wrapper'>
@@ -72,7 +65,7 @@ const Login = () => {
                     </Text>
                 </div>
 
-                <Divider label="Login with Email and password" labelPosition="center" my="lg" />
+                <Divider label="Login with registered email" labelPosition="center" my="lg" />
 
                 <form onSubmit={form.onSubmit(() => handleLogin(form))}>
                     <Stack>
@@ -95,7 +88,7 @@ const Login = () => {
                     </Group>
                 </form>
             </div>
-            
+
         </div>
     );
 }

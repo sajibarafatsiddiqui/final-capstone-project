@@ -89,7 +89,8 @@ const Navigation = () => {
   });
 
   return (
-    <Navbar height='100vh' width={{ sm: 260 }} p="md">
+    <>
+    <Navbar height='100vh' width={{ sm: 260 }} p="md" className='main-navbar'>
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <Image src="car booking logo.png" height='120px' width='120px' />
@@ -105,6 +106,11 @@ const Navigation = () => {
       </Navbar.Section>
 
     </Navbar>
+
+    <div className='mobile-nav-bar'>
+
+    </div>
+    </>
   );
 }
 
