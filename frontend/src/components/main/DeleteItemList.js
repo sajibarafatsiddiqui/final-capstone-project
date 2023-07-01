@@ -8,17 +8,16 @@ import {
     Group,
     Text,
     Center,
-    TextInput,
     rem,
     Image,
     Button,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
-import { IconSelector, IconChevronDown, IconChevronUp, IconSearch, IconEraser } from '@tabler/icons-react';
-import { tableData } from "../../helpers/datas";
+import { IconSelector, IconChevronDown, IconChevronUp, IconEraser } from '@tabler/icons-react';
 import "./DeleteItemList.css"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../../redux/cars";
+
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -90,7 +89,7 @@ function sortData(
     );
 }
 
-function DeleteItemList(props) {
+const DeleteItemList = (props) => {
     const [myCars, setMyCars] = useState([]);
     const { cars } = useSelector((state) => state.cars);
     console.log(cars);
@@ -99,7 +98,7 @@ function DeleteItemList(props) {
     useEffect(() => {
         // get datas
         dispatch(fetchCars()).then(
-            response =>{
+            response => {
                 setMyCars(response.payload);
             }
         )
@@ -118,7 +117,7 @@ function DeleteItemList(props) {
     return (
         // <ScrollArea>
         <div className="delete-list-wrapper">
-            <div className="title-header" style={{padding:20}}>
+            <div className="title-header" style={{ padding: 20 }}>
                 <h2 className="title-headline">LIST OF CARS</h2>
             </div>
 
@@ -138,7 +137,7 @@ function DeleteItemList(props) {
                             rows
                         ) : (
                             <tr>
-                                <td colSpan={Object.keys(tableData[0]).length}>
+                                <td colSpan={Object.keys(rows[0]).length}>
                                     <Text weight={500} align="center">
                                         Nothing found
                                     </Text>
@@ -149,7 +148,6 @@ function DeleteItemList(props) {
                 </Table>
             </ScrollArea>
         </div>
-        // </ScrollArea>
 
     );
 }

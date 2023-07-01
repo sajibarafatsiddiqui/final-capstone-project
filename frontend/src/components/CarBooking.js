@@ -12,7 +12,7 @@ import Login from './authentication/Login';
 import Signup from './authentication/Signup';
 import ProtectedRoute from '../util/ProtectedRoute';
 
-function CarBooking() {
+const CarBooking = () => {
     return (
         <BrowserRouter>
             <div className='app-body'>

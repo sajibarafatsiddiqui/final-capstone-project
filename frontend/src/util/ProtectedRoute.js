@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
-import { notifications } from "@mantine/notifications";
-
+import {  useNavigate } from "react-router-dom";
 const ProtectedRoute = (props) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +15,7 @@ const ProtectedRoute = (props) => {
             return navigate('../login');
         }else{
             setIsLoggedIn(true);
-            navigate('../list-item');
+            
         }
         
     }

@@ -1,12 +1,11 @@
-import { Button, Image, Notification, RingProgress, Skeleton } from "@mantine/core";
-import { IconCalendarCheck, IconCheck, IconEraser, IconLockCancel, IconMessageCancel, IconMultiplier1x, IconRoad, IconShoppingCartX, IconUser } from "@tabler/icons-react";
+import { Button, Image, Notification, Skeleton } from "@mantine/core";
+import { IconCalendarCheck, IconCheck, IconRoad, IconShoppingCartX, IconUser } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { fetchCarDetails } from "../../redux/cars";
 import { useDispatch } from "react-redux";
 
 const ReservationItem = (props) => {
     const data = props.data;
-
     const [loadImage, setLoadImage] = useState(true);
     const [carImage, setCarImage] = useState('');
     const dispatch = useDispatch();
@@ -19,14 +18,6 @@ const ReservationItem = (props) => {
             }
         );
     }, [])
-
-    const _displayNotification = () => {
-        return (
-            <Notification icon={<IconCheck size="1.1rem" />} color="teal" title="Notification">
-                The Reservation status has successfully changed
-            </Notification>
-        )
-    }
 
     return (
         <div style={{ width: '95%', height: '120px', padding: 5, margin: 10, display: 'flex', justifyContent: 'flex-start', borderBottom: '1px solid gray' }}>
@@ -44,8 +35,7 @@ const ReservationItem = (props) => {
             <div style={{ marginLeft: 10, width: 250 }}>
                 <h3 style={{ margin: 0, padding: 0 }}>{data.model}</h3>
                 <p style={{ margin: 0, padding: 0, fontSize: 12, width: 180, flexWrap: 'wrap' }}>Lorem ipsum...</p>
-                <Button leftIcon={<IconShoppingCartX />} color="red" size="small" style={{ padding: 5 }}
-                    onClick={_displayNotification()}>Cancel Booking</Button>
+                <Button leftIcon={<IconShoppingCartX />} color="red" size="small" style={{ padding: 5 }}>Cancel Booking</Button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>
                 <IconCalendarCheck size={50} color="gray" />
