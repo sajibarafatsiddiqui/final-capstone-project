@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCarDetails } from "../../redux/cars";
 import { useForm } from "@mantine/form";
 import { saveReservation } from "../../redux/rental";
+import { toast } from "react-toast";
 
 
 const Details = (props) => {
@@ -48,6 +49,7 @@ const Details = (props) => {
         newData.car_id = id;
 
         dispatch(saveReservation(newData));
+        toast.success('Reservation created !');
         form.reset();
         setLoading(false);
         close();
@@ -116,6 +118,7 @@ const Details = (props) => {
                         ]}
                     />
                     <DateInput
+                        required
                         label="Date"
                         name="date_rent"
                         placeholder="Date input"
@@ -125,6 +128,7 @@ const Details = (props) => {
                         onChange={(event) => form.setFieldValue('date_rent', event)}
                     />
                     <DateInput
+                        required
                         value={form.values.date_return}
                         onChange={(event) => form.setFieldValue('date_return', event)}
                         label="Date"
@@ -133,7 +137,7 @@ const Details = (props) => {
                         maw={400}
                         mx="auto"
                     />
-                    <TextInput label="City" placeholder="Enter the city" name="destination" size="md"
+                    <TextInput required label="City" placeholder="Enter the city" name="destination" size="md"
                         value={form.values.destination}
                         onChange={(event) => form.setFieldValue('destination', event.currentTarget.value)}
                     />

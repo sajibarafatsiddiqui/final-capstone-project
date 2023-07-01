@@ -13,6 +13,7 @@ import {
   IconBrandPinterest,
   IconMail,
 } from '@tabler/icons-react';
+import { toast } from 'react-toast';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -72,7 +73,7 @@ const Navigation = () => {
   const links = data.map((item) => {
     if (item.label === 'Logout') {
       return (
-        <Link className={cx(classes.link, { [classes.linkActive]: item.label === active })} to={item.link} onClick={() => localStorage.removeItem('userId')}>
+        <Link className={cx(classes.link, { [classes.linkActive]: item.label === active })} to={item.link} onClick={() => { localStorage.removeItem('userId'); toast.info('Session closed!'); }}>
           <item.icon className={classes.linkIcon} stroke={1.5} color={item.label === active ? 'white' : 'black'} />
           {item.label}
         </Link>
@@ -90,26 +91,26 @@ const Navigation = () => {
 
   return (
     <>
-    <Navbar height='100vh' width={{ sm: 260 }} p="md" className='main-navbar'>
-      <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <Image src="car booking logo.png" height='120px' width='120px' />
-        </Group>
-        {links}
+      <Navbar height='100vh' width={{ sm: 260 }} p="md" className='main-navbar'>
+        <Navbar.Section grow>
+          <Group className={classes.header} position="apart">
+            <Image src="car booking logo.png" height='120px' width='120px' />
+          </Group>
+          {links}
 
-        {/* footer */}
-        {/* icons & copyright */}
-        <div style={{ width: '180px', position: 'absolute', bottom: 15, alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
-          <span><IconBrandFacebook stroke={0.8} color='gray' /><IconBrandTwitter stroke={0.8} color='gray' /><IconBrandGithub stroke={0.8} color='gray' /><IconBrandPinterest stroke={0.8} color='gray' /><IconMail stroke={0.8} color='gray' /></span>
-          <p style={{ margin: 0, color: 'gray', fontSize: 12, fontWeight: 'bold' }}>Copyright @2023 Team H.</p>
-        </div>
-      </Navbar.Section>
+          {/* footer */}
+          {/* icons & copyright */}
+          <div style={{ width: '180px', position: 'absolute', bottom: 15, alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
+            <span><IconBrandFacebook stroke={0.8} color='gray' /><IconBrandTwitter stroke={0.8} color='gray' /><IconBrandGithub stroke={0.8} color='gray' /><IconBrandPinterest stroke={0.8} color='gray' /><IconMail stroke={0.8} color='gray' /></span>
+            <p style={{ margin: 0, color: 'gray', fontSize: 12, fontWeight: 'bold' }}>Copyright @2023 Team H.</p>
+          </div>
+        </Navbar.Section>
 
-    </Navbar>
+      </Navbar>
 
-    <div className='mobile-nav-bar'>
+      <div className='mobile-nav-bar'>
 
-    </div>
+      </div>
     </>
   );
 }

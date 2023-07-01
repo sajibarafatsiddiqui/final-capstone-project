@@ -5,6 +5,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
 import { saveCar } from "../../redux/cars";
 import { useForm } from "@mantine/form";
+import { toast } from "react-toast";
 
 const AddItem = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const AddItem = () => {
         console.log(data.values);
         setLoading(true);
         dispatch(saveCar(data.values));
+        toast.success('Car added successfully !');
         form.reset();
         setLoading(false);
     }
@@ -37,6 +39,7 @@ const AddItem = () => {
             <form className="car-form" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
                 <Stack>
                     <TextInput
+                        required
                         label="Model"
                         name="car_model"
                         placeholder="Enter the car model"
@@ -45,6 +48,7 @@ const AddItem = () => {
                         onChange={(event) => form.setFieldValue('car_model', event.currentTarget.value)}
                     />
                     <TextInput
+                        required
                         label="Rent price"
                         name="rent_price"
                         placeholder="Enter the renting price"
@@ -53,6 +57,7 @@ const AddItem = () => {
                         onChange={(event) => form.setFieldValue('rent_price', event.currentTarget.value)}
                     />
                     <Select
+                        required
                         label="Status"
                         radius="md"
                         name="status"
@@ -65,6 +70,7 @@ const AddItem = () => {
                         onChange={(event) => form.setFieldValue('status', event)}
                     />
                     <TextInput
+                        required
                         label="Image"
                         name="image"
                         placeholder="paste the URL to the image"

@@ -23,6 +23,10 @@ const ReservationItem = (props) => {
         );
     }, [])
 
+    const cancelReservation = (id)=>{
+        props.handleRemove(id);
+    }
+
     return (
         <div style={{ width: '95%', height: '120px', padding: 5, margin: 10, display: 'flex', justifyContent: 'flex-start', borderBottom: '1px solid gray' }}>
 
@@ -39,7 +43,7 @@ const ReservationItem = (props) => {
             <div style={{ marginLeft: 10, width: 250 }}>
                 <h3 style={{ margin: 0, padding: 0 }}>{car.model}</h3>
                 <p style={{ margin: 0, padding: 0, fontSize: 12, width: 180, flexWrap: 'wrap' }}>Rent price: {car.rent_price} | Status: {car.status}</p>
-                <Button leftIcon={<IconShoppingCartX />} color="red" size="small" style={{ padding: 5 }}>Cancel Booking</Button>
+                <Button leftIcon={<IconShoppingCartX />} color="red" size="small" style={{ padding: 5 }} onClick={()=> cancelReservation(data.id)} >Cancel Booking</Button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 180 }}>
                 <IconCalendarCheck size={50} color="gray" />

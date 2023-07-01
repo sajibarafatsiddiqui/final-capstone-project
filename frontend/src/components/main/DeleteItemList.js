@@ -17,6 +17,7 @@ import { IconSelector, IconChevronDown, IconChevronUp, IconEraser } from '@table
 import "./DeleteItemList.css"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../../redux/cars";
+import { toast } from "react-toast";
 
 
 const useStyles = createStyles((theme) => ({
@@ -104,13 +105,20 @@ const DeleteItemList = (props) => {
         )
     }, [dispatch]);
 
+    const removeCar = (id) => {
+        let newArray = myCars.filter((item) => item.id !== id)
+        setMyCars(newArray);
+        toast.success('Car removed!');
+    }
+
+
     const rows = myCars.map((row) => (
         <tr key={row.model}>
             <td><Image src={row.image} height={120} width="auto" radius="md" /></td>
             <td>{row.model}</td>
             <td>{row.status}</td>
             <td>{row.rent_price}</td>
-            <td><Button leftIcon={<IconEraser />} color="red">Delete</Button></td>
+            <td><Button leftIcon={<IconEraser />} color="red" onClick={()=>removeCar(row.id)}>Delete</Button></td>
         </tr>
     ));
 

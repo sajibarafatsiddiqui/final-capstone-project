@@ -5,7 +5,8 @@ import { IconSearch } from "@tabler/icons-react";
 import { Link } from 'react-router-dom'
 import ReservationItem from "./ReservationItem";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchReservations} from '../../redux/rental/index'
+import { fetchReservations } from '../../redux/rental/index'
+import { toast } from "react-toast";
 
 const MyReservations = () => {
     const [Myreservations, setMyReservations] = useState([]);
@@ -13,10 +14,16 @@ const MyReservations = () => {
     console.log(reservations);
     const dispatch = useDispatch();
 
+    const removeCar = (id) => {
+        let newArray = Myreservations.filter((item) => item.id !== id)
+        setMyReservations(newArray);
+        toast.success('Reservation canceled!');
+    }
+
     useEffect(() => {
         // get datas
         dispatch(fetchReservations()).then(
-            response =>{
+            response => {
                 setMyReservations(response.payload.data);
                 console.log(response.payload.data);
             }
@@ -44,7 +51,7 @@ const MyReservations = () => {
                     {/* list of reservations */}
                     <div style={{ width: '100%', marginTop: 20, justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
                         {Myreservations.map((reservation) => (
-                            <ReservationItem data={reservation} />
+                            <ReservationItem data={reservation} handleRemove={removeCar} />
                         )
                         )}
                     </div>

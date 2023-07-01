@@ -13,6 +13,7 @@ import "./Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signinReducer } from '../../redux/authentication';
+import { toast } from 'react-toast'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -51,8 +52,8 @@ const Login = () => {
         );
     }
 
-    const displayToast =()=>{
-
+    const displayToast = () => {
+        toast.error('Authentication failed !', { delay: 1500 });
     };
 
     return (
@@ -88,7 +89,6 @@ const Login = () => {
                     </Group>
                 </form>
             </div>
-
         </div>
     );
 }

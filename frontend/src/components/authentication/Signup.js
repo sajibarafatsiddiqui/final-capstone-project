@@ -13,6 +13,7 @@ import "./Signup.css"
 import { useDispatch } from 'react-redux';
 import { useForm } from '@mantine/form';
 import { uploadUser } from '../../redux/authentication';
+import { toast } from 'react-toast';
 
 const useStyles = createStyles((theme) => ({
 
@@ -41,7 +42,7 @@ const Signup = () => {
     const handleSubmitForm = (data) => {
         setLoading(true);
         dispatch(uploadUser(data.values));
-
+        toast.success('Account created !');
         form.reset();
         navigate('../login');
 
@@ -57,6 +58,7 @@ const Signup = () => {
                 </Title>
                 <form className="car-form---" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
                     <TextInput
+                        required
                         name='email'
                         label="Email address"
                         placeholder="example@email.com"
@@ -66,6 +68,7 @@ const Signup = () => {
                     />
                     <div style={{ display: 'flex' }}>
                         <TextInput
+                            required
                             label="First name"
                             name='first_name'
                             placeholder="First name"
@@ -74,6 +77,7 @@ const Signup = () => {
                             onChange={(event) => form.setFieldValue('first_name', event.currentTarget.value)}
                         />
                         <TextInput
+                            required
                             label="last Name"
                             name='last_name'
                             placeholder="Last name"
@@ -84,6 +88,7 @@ const Signup = () => {
                         />
                     </div>
                     <Select
+                        required
                         size="sm"
                         label="Gender"
                         radius="md"
@@ -96,6 +101,7 @@ const Signup = () => {
                         onChange={(event) => form.setFieldValue('gender', event)}
                     />
                     <TextInput
+                        required
                         label="Age"
                         name='age'
                         placeholder="Age"
