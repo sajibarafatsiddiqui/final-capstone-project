@@ -5,8 +5,8 @@ class Rental < ApplicationRecord
   validate :return_date_cannot_be_before_rent_date
 
   def return_date_cannot_be_before_rent_date
-    if date_return.present? && date_return < date_rent
-      errors.add(:date_return, "can't be before rent date")
-    end
+    return unless date_return.present? && date_return < date_rent
+
+    errors.add(:date_return, "can't be before rent date")
   end
 end
