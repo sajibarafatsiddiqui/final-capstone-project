@@ -24,9 +24,9 @@ default: &default
 development:
   <<: *default
   database: car_rental_api
-  # port: 9595
+  port: 9595
   username: postgres
-  password: megamind
+  password: postgres
  
 
   # The specified database role being used to connect to postgres.

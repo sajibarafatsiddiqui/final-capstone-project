@@ -2,7 +2,7 @@ class Api::V1::SessionsController < ApplicationController
   include Passwordless::ControllerHelpers
   def create
     user = User.find_by(email: user_params[:email])
-    if user 
+    if user
       session[:user_id] = user.id
       render json: { session: session.id, first_name: user.first_name, last_name: user.last_name }
     else
@@ -10,6 +10,7 @@ class Api::V1::SessionsController < ApplicationController
              status: :unprocessable_entity
     end
   end
+
   def destroy
     reset_session
     if current_user
@@ -25,14 +26,13 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
-  def passwordless_options_for(user)
+  def passwordless_options_for(_user)
     { ignore_magic_link: true }
   end
+
   private
-  
+
   def user_params
     params.require(:user).permit(:email)
   end
-
-  
 end
