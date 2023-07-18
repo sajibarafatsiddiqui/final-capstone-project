@@ -52,7 +52,7 @@ const Signup = () => {
             autoClose: true
         });
 
-        navigate('../login');
+        navigate('/login');
 
     }
 

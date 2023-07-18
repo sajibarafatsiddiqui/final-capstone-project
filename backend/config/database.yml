@@ -64,7 +64,7 @@ test:
   database: backend_test
   # port: 9595
   user: postgres
-  password: megamind
+  password: postgres
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -88,6 +88,6 @@ test:
 #
 production:
   <<: *default
-  database: backend_production
-  username: backend
+  database: car_rental_api
+  port: 9595
   password: <%= ENV["BACKEND_DATABASE_PASSWORD"] %>
