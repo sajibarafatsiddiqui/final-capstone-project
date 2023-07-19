@@ -12,9 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Signup.css"
 import { useDispatch } from 'react-redux';
 import { useForm } from '@mantine/form';
-import { signUp } from '../../helpers/helpers';
 import { uploadUser } from '../../redux/authentication';
-import { notifications } from '@mantine/notifications';
+import { toast } from 'react-toast';
 
 const useStyles = createStyles((theme) => ({
 
@@ -43,8 +42,9 @@ const Signup = () => {
     const handleSubmitForm = (data) => {
         setLoading(true);
         dispatch(uploadUser(data.values));
-        // 
+        toast.success('Account created !');
         form.reset();
+<<<<<<< HEAD
         notifications.show({
             title: 'Notification',
             content: 'User successfully created!',
@@ -53,6 +53,9 @@ const Signup = () => {
         });
 
         navigate('/login');
+=======
+        navigate('../login');
+>>>>>>> 8ba3769597de7ff9ad1eac2dc080234cfed3bda6
 
     }
 
@@ -66,6 +69,7 @@ const Signup = () => {
                 </Title>
                 <form className="car-form---" onSubmit={form.onSubmit(() => handleSubmitForm(form))}>
                     <TextInput
+                        required
                         name='email'
                         label="Email address"
                         placeholder="example@email.com"
@@ -75,6 +79,7 @@ const Signup = () => {
                     />
                     <div style={{ display: 'flex' }}>
                         <TextInput
+                            required
                             label="First name"
                             name='first_name'
                             placeholder="First name"
@@ -83,6 +88,7 @@ const Signup = () => {
                             onChange={(event) => form.setFieldValue('first_name', event.currentTarget.value)}
                         />
                         <TextInput
+                            required
                             label="last Name"
                             name='last_name'
                             placeholder="Last name"
@@ -93,6 +99,7 @@ const Signup = () => {
                         />
                     </div>
                     <Select
+                        required
                         size="sm"
                         label="Gender"
                         radius="md"
@@ -105,6 +112,7 @@ const Signup = () => {
                         onChange={(event) => form.setFieldValue('gender', event)}
                     />
                     <TextInput
+                        required
                         label="Age"
                         name='age'
                         placeholder="Age"
@@ -119,11 +127,7 @@ const Signup = () => {
 
                 <Text ta="center" mt="md">
                     Already have an account?{' '}
-                    {/* Don&apos;t have an account?{' '} */}
                     <Link to="../login">Login</Link>
-                    {/* <Anchor<'a'> href="#" weight={700} onClick={(event) => event.preventDefault()}>
-              Register
-            </Anchor> */}
                 </Text>
             </Paper>
         </div>

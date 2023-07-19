@@ -5,31 +5,43 @@ import { IconSearch } from "@tabler/icons-react";
 import { Link } from 'react-router-dom'
 import ReservationItem from "./ReservationItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchReservation } from "../../redux/rental";
+import { fetchReservations } from '../../redux/rental/index'
+import { toast } from "react-toast";
 
-const MyReservations = (props) => {
-    // const [reservations, setReservations] = useState([1]);
-    const dispatch = useDispatch();
+const MyReservations = () => {
+    const [Myreservations, setMyReservations] = useState([]);
     const { reservations } = useSelector((state) => state.reservations);
-    // const dispatch = useDispatch();
-    // if (!rentals.length) {
-    //     // dispatch(LIST_CAR);    
-    // }
+    console.log(reservations);
+    const dispatch = useDispatch();
+
+    const removeCar = (id) => {
+        let newArray = Myreservations.filter((item) => item.id !== id)
+        setMyReservations(newArray);
+        toast.success('Reservation canceled!');
+    }
 
     useEffect(() => {
-        dispatch(fetchReservation());
+        // get datas
+        dispatch(fetchReservations()).then(
+            response => {
+                setMyReservations(response.payload.data);
+                console.log(response.payload.data);
+            }
+        )
     }, [dispatch]);
+
 
     return (
         <div className="main-container">
 
-            {reservations.length < 1 ?
+            {Myreservations.length < 1 ?
                 <div className="empty-container">
                     <Image src="undraw_empty_cart_co35.png" height={120} width="auto" />
                     <h2 className="empty-headline">No Reservation found</h2>
                     <p className="empty-subtitle">Check the list of available cars and book your ride with us!</p>
                     <Button color="lime" leftIcon={<IconSearch size={15} />}><Link to="../list-item" style={{ textDecoration: 'none', color: 'white' }}>Explore Cars</Link></Button>
-                </div> :
+                </div>
+                :
                 <>
                     {/* header */}
                     <div className="title-header">
@@ -38,8 +50,8 @@ const MyReservations = (props) => {
                     </div>
                     {/* list of reservations */}
                     <div style={{ width: '100%', marginTop: 20, justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
-                        {reservations.map((reservation) => (
-                            <ReservationItem data={reservation} />
+                        {Myreservations.map((reservation) => (
+                            <ReservationItem data={reservation} handleRemove={removeCar} />
                         )
                         )}
                     </div>

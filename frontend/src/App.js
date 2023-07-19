@@ -2,7 +2,7 @@ import React from 'react';
 import { MantineProvider } from '@mantine/core';
 import CarBooking from './components/CarBooking';
 
-function App() {
+const App = () => {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <CarBooking />
