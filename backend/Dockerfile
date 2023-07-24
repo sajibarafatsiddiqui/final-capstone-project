@@ -3,8 +3,13 @@
 # Use the official Ruby image as the base image
 FROM ruby:3.0.0
 
+# Set environment variables for the Rails API
+ENV RAILS_ENV production
+ENV RAILS_LOG_TO_STDOUT true
+ENV DATABASE_URL $DATABASE_URL
+ENV INSTALL_PATH /app
 # Set the working directory in the container
-WORKDIR .
+WORKDIR $INSTALL_PATH
 
 # Install dependencies
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
@@ -24,10 +29,6 @@ COPY . .
 # Expose the port on which the Rails app will run
 EXPOSE 3000
 
-# Set environment variables for the Rails API
-ENV RAILS_ENV production
-ENV RAILS_LOG_TO_STDOUT true
-ENV DATABASE_URL $DATABASE_URL
 
 # Precompile assets
 RUN bundle exec rails assets:precompile
